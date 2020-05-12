@@ -11,6 +11,7 @@ import Config from '@views/config'
 import StoreList from '@views/storeList'
 import EditInfo from '@views/editInfo'
 import PunchList from '@views/punchList';
+import Apply from '@views/apply';
 
 export default {
     MainTab: {
@@ -50,7 +51,7 @@ export default {
         screen:EditInfo
     },
     Mine:{
-        screen:PunchList
+        screen:Apply
     },
     PunchList: {
         screen: PunchList
