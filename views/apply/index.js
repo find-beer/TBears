@@ -4,9 +4,9 @@
 
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
-import Header from '@views/common/header';
 import {scaleSize, scaleFont} from '@utils/scaleUtil';
 import { ifIphoneX } from '@utils/screenUtil'
+import Header from '@views/common/header';
 
 export default class Apply extends React.Component {
     formItems = [

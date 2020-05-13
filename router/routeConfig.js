@@ -12,6 +12,7 @@ import StoreList from '@views/storeList'
 import EditInfo from '@views/editInfo'
 import PunchList from '@views/punchList';
 import Apply from '@views/apply';
+import relationChain from '@views/relationChain';
 
 export default {
     MainTab: {
@@ -51,9 +52,15 @@ export default {
         screen:EditInfo
     },
     Mine:{
-        screen:Apply
+        screen:relationChain
     },
     PunchList: {
         screen: PunchList
+    },
+    Apply: {
+        screen: Apply
+    },
+    relationChain: {
+        screen: relationChain
     }
 }
