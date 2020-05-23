@@ -10,6 +10,9 @@ import Store from '@views/store'
 import Config from '@views/config'
 import StoreList from '@views/storeList'
 import EditInfo from '@views/editInfo'
+import Publish from '@views/publish/index'
+import userPublish from '@views/userPublish/index'
+import Activities from '@views/activities/index' 
 
 export default {
     MainTab: {
@@ -50,5 +53,14 @@ export default {
     },
     Mine:{
         screen:MainTabScreen
+    },
+    Publish: {
+        screen: Publish
+    },
+    userPublish: {
+        screen: userPublish
+    },
+    Activities: {
+        screen: Activities
     }
 }
