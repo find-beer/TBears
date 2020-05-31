@@ -2,6 +2,7 @@ import HomeScreen from '@views/home/index'
 import MeetScreen from '@views/meet/index'
 import NoticeScreen from '@views/notice/index'
 import MineScreen from '@views/mine/index'
+import Publish from '@views/publish/index'
 
 export default [{
     name: 'Home',
@@ -17,10 +18,10 @@ export default [{
     screen: MeetScreen
 }, {
     name: 'Publish',
-    label: null,
+    label: '发布',
     iconInactiveUri: 'http://q4pas9fmo.bkt.clouddn.com/publish.png',
     iconActiveUri: 'http://q4pas9fmo.bkt.clouddn.com/publish.png',
-    screen: null
+    screen: Publish
 }, {
     name: 'Notice',
     label: '消息',

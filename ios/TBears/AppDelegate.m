@@ -1,14 +1,18 @@
 #import "AppDelegate.h"
 #import "TRootViewController.h"
+#import <AMapFoundationKit/AMapFoundationKit.h> //引入高德地图核心包
 
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import <React/RCTDevLoadingView.h>
 
+// #define APIKEY @"dda2ce0ca251baf59404a59c28b4edd5"
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [AMapServices sharedServices].apiKey = @"dda2ce0ca251baf59404a59c28b4edd5"; //设置高德地图SDK服务key
     RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
     
     #if RCT_DEV

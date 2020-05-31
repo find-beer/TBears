@@ -2,6 +2,7 @@ import React, { useMemo } from 'react'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { NavigationActions } from 'react-navigation'
 import * as actions from '@actions/index.js'
 import tabNavigatorConfig from '@router/tabNavigatorConfig'
 import styles from '@styles/mainTab'
@@ -18,9 +19,12 @@ const TabBar = props => (
                     {
                         tabItem.name === 'Publish'
                         ?
-                        <Image 
-                            source={{ uri: tabItem.iconInactiveUri }}
-                            style={styles.tabBarItemIconPublish} />
+                        <View>
+                            <Image 
+                                source={{ uri: tabItem.iconInactiveUri }}
+                                style={styles.tabBarItemIconPublish} />
+                            <Text>1{ tabItem.label }</Text>
+                        </View>
                         :
                         <View>
                             <Image 
@@ -56,7 +60,17 @@ const mapDispatchToProps = dispatch => ({ actions: bindActionCreators(actions, d
 
 export default connect(mapStateToProps, mapDispatchToProps)(props => {
     const onTabItemPress = tabItem => () => {
-        tabItem.name !== 'Publish' && props.actions.switch_tab(tabItem.name)
+        
+        if(tabItem.name === 'Publish') {
+            let NavigationAction = NavigationActions.navigate({
+                routeName: 'userPublish',    
+                params: {}
+            });
+            props.navigation.dispatch(NavigationAction);
+        } else {
+            props.actions.switch_tab(tabItem.name)
+        }
+
     }
     return (
         <View style={styles.rootWrapper}>

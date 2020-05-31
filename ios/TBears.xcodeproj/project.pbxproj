@@ -31,6 +31,16 @@
 		81AF2358EF3447138C46ABAF /* libPods-TBears.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAC1E3224FEB6196A2E3DD7 /* libPods-TBears.a */; };
 		94AB4D7733A54708A3D683A4 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DC4D4031A9B44D8788FF340D /* Foundation.ttf */; };
 		9BADC4F606E24211B41D79D7 /* Roboto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 73FED1861F034957BDDBF8D9 /* Roboto.ttf */; };
+		B201D8AF2478EE1E00A5E895 /* AMapLocationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B201D8AE2478EE1E00A5E895 /* AMapLocationKit.framework */; };
+		B201D8B12478EE4300A5E895 /* AMapFoundationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B201D8B02478EE4300A5E895 /* AMapFoundationKit.framework */; };
+		B201D8B22478F7CF00A5E895 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
+		B201D8B42478F7DE00A5E895 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B201D8B32478F7DE00A5E895 /* SystemConfiguration.framework */; };
+		B201D8B62478F7ED00A5E895 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B201D8B52478F7ED00A5E895 /* CoreTelephony.framework */; };
+		B201D8B82478F7FB00A5E895 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B201D8B72478F7FB00A5E895 /* CoreLocation.framework */; };
+		B201D8BA2478F81900A5E895 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B201D8B92478F81900A5E895 /* libz.tbd */; };
+		B201D8BC2478F83A00A5E895 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B201D8BB2478F83A00A5E895 /* libc++.tbd */; };
+		B201D8BE2478F84600A5E895 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B201D8BD2478F84600A5E895 /* Security.framework */; };
+		B201D8C02478F86C00A5E895 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B201D8BF2478F86C00A5E895 /* ExternalAccessory.framework */; };
 		B6FDCF3DADF941A3B50307D6 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B145E9C8DBEC42C18F837344 /* AntDesign.ttf */; };
 		BCC55937C78949BD8CDA9A75 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D28E4500C48F4C85B5737BF2 /* MaterialCommunityIcons.ttf */; };
 		C1754D9AC57944B591E1322D /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C45D3328203140DFB4E3A45B /* FontAwesome.ttf */; };
@@ -85,6 +95,15 @@
 		893F232758FD43C8819ECAD0 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/native-base/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		AC719B7B74734243B38DAEEB /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/native-base/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		B145E9C8DBEC42C18F837344 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/native-base/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
+		B201D8AE2478EE1E00A5E895 /* AMapLocationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapLocationKit.framework; sourceTree = "<group>"; };
+		B201D8B02478EE4300A5E895 /* AMapFoundationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapFoundationKit.framework; sourceTree = "<group>"; };
+		B201D8B32478F7DE00A5E895 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		B201D8B52478F7ED00A5E895 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		B201D8B72478F7FB00A5E895 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		B201D8B92478F81900A5E895 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		B201D8BB2478F83A00A5E895 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		B201D8BD2478F84600A5E895 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		B201D8BF2478F86C00A5E895 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		BE9A461A1D4E4BA8B4F76B4D /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/native-base/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		C45D3328203140DFB4E3A45B /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/native-base/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		D28E4500C48F4C85B5737BF2 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
@@ -100,6 +119,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B201D8C02478F86C00A5E895 /* ExternalAccessory.framework in Frameworks */,
+				B201D8BE2478F84600A5E895 /* Security.framework in Frameworks */,
+				B201D8BC2478F83A00A5E895 /* libc++.tbd in Frameworks */,
+				B201D8BA2478F81900A5E895 /* libz.tbd in Frameworks */,
+				B201D8B82478F7FB00A5E895 /* CoreLocation.framework in Frameworks */,
+				B201D8B62478F7ED00A5E895 /* CoreTelephony.framework in Frameworks */,
+				B201D8B42478F7DE00A5E895 /* SystemConfiguration.framework in Frameworks */,
+				B201D8B22478F7CF00A5E895 /* JavaScriptCore.framework in Frameworks */,
+				B201D8B12478EE4300A5E895 /* AMapFoundationKit.framework in Frameworks */,
+				B201D8AF2478EE1E00A5E895 /* AMapLocationKit.framework in Frameworks */,
 				81AF2358EF3447138C46ABAF /* libPods-TBears.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -208,6 +237,15 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B201D8BF2478F86C00A5E895 /* ExternalAccessory.framework */,
+				B201D8BD2478F84600A5E895 /* Security.framework */,
+				B201D8BB2478F83A00A5E895 /* libc++.tbd */,
+				B201D8B92478F81900A5E895 /* libz.tbd */,
+				B201D8B72478F7FB00A5E895 /* CoreLocation.framework */,
+				B201D8B52478F7ED00A5E895 /* CoreTelephony.framework */,
+				B201D8B32478F7DE00A5E895 /* SystemConfiguration.framework */,
+				B201D8B02478EE4300A5E895 /* AMapFoundationKit.framework */,
+				B201D8AE2478EE1E00A5E895 /* AMapLocationKit.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				3DAC1E3224FEB6196A2E3DD7 /* libPods-TBears.a */,
@@ -439,6 +477,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = TBears/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -458,6 +500,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = TBears/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -507,7 +553,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/zhaodanning/project/TBears/ios/TBears/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = "/Users/yuli/Documents/TB-project/TBears/ios/TBears/PrefixHeader.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",

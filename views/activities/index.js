@@ -114,6 +114,8 @@ export default class Activities extends React.Component {
                         height={200}
                         showsButtons={false}
                         paginationStyle={{bottom: 6}}
+                        autoplay={true}
+                        loop={true}
                     >
                         <Image source={require('../../assets/mine/avatar.jpeg')} style={styles.bannerImg} />
                         <Image source={require('../../assets/mine/avatar.jpeg')} style={styles.bannerImg} />
