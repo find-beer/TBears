@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import {StyleSheet, View, FlatList} from 'react-native';
+import {View, FlatList} from 'react-native';
 import Header from '@views/common/header';
 import Card from './card';
 

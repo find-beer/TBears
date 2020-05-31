@@ -5,7 +5,7 @@
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import {scaleSize, scaleFont} from '@utils/scaleUtil';
-import { ifIphoneX } from '@utils/screenUtil'
+import {ifIphoneX} from '@utils/screenUtil';
 import Header from '@views/common/header';
 
 export default class Apply extends React.Component {
@@ -54,7 +54,7 @@ export default class Apply extends React.Component {
 const styles = StyleSheet.create({
     container: {
         position: 'relative',
-        height: '100%'
+        height: '100%',
     },
     header: {
         fontSize: scaleSize(48),

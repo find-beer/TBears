@@ -10,9 +10,10 @@ import Store from '@views/store'
 import Config from '@views/config'
 import StoreList from '@views/storeList'
 import EditInfo from '@views/editInfo'
-import PunchList from '@views/punchList';
-import Apply from '@views/apply';
-import relationChain from '@views/relationChain';
+import PunchList from '@views/punchList';  // 榜单
+import Apply from '@views/apply'; // 报名页
+import RelationChain from '@views/relationChain'; // 关系链
+import Home from '@views/home'; // 关系网首页
 
 export default {
     MainTab: {
@@ -52,7 +53,7 @@ export default {
         screen:EditInfo
     },
     Mine:{
-        screen:relationChain
+        screen: Home
     },
     PunchList: {
         screen: PunchList
@@ -60,7 +61,7 @@ export default {
     Apply: {
         screen: Apply
     },
-    relationChain: {
-        screen: relationChain
+    RelationChain: {
+        screen: RelationChain
     }
 }

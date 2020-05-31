@@ -11,11 +11,11 @@ export default class relationChain extends React.Component {
                 <View style={styles.container}>
                     {/*  基本信息 */}
                     <ImageBackground
-                        source={imageUrl.bgIntro}
+                        source={images.bgIntro}
                         style={styles.intro}>
                         <View style={styles.mine}>
                             <ImageBackground
-                                source={imageUrl.bearPurple}
+                                source={images.bearPurple}
                                 style={styles.introHeadshot}
                             />
                             <Text style={styles.introName}>李小二个</Text>
@@ -23,7 +23,7 @@ export default class relationChain extends React.Component {
                         <View style={styles.chain} />
                         <View style={styles.friend}>
                             <ImageBackground
-                                source={imageUrl.bearGray}
+                                source={images.bearGray}
                                 style={styles.introHeadshot}
                             />
                             <Text style={styles.introName}>李小二个</Text>
@@ -37,7 +37,7 @@ export default class relationChain extends React.Component {
                             <View style={styles.detailLeft}>
                                 <View>
                                     <ImageBackground
-                                        source={imageUrl.bearGray}
+                                        source={images.bearGray}
                                         style={styles.detailHeadshot}
                                     />
                                     <Text style={styles.detailName}>
@@ -45,12 +45,12 @@ export default class relationChain extends React.Component {
                                     </Text>
                                 </View>
                                 <ImageBackground
-                                    source={imageUrl.chainShort}
+                                    source={images.chainShort}
                                     style={styles.chainShort}
                                 />
                                 <View>
                                     <ImageBackground
-                                        source={imageUrl.bearGray}
+                                        source={images.bearGray}
                                         style={styles.detailHeadshot}
                                     />
                                     <Text style={styles.detailName}>
@@ -58,12 +58,12 @@ export default class relationChain extends React.Component {
                                     </Text>
                                 </View>
                                 <ImageBackground
-                                    source={imageUrl.chainShort}
+                                    source={images.chainShort}
                                     style={styles.chainShort}
                                 />
                                 <View>
                                     <ImageBackground
-                                        source={imageUrl.bearGray}
+                                        source={images.bearGray}
                                         style={styles.detailHeadshot}
                                     />
                                     <Text style={styles.detailName}>
@@ -72,13 +72,13 @@ export default class relationChain extends React.Component {
                                 </View>
                             </View>
                             <ImageBackground
-                                source={imageUrl.chainLong}
+                                source={images.chainLong}
                                 style={styles.chainLong}
                             />
                             <View style={styles.detailRight}>
                                 <View>
                                     <ImageBackground
-                                        source={imageUrl.bearGray}
+                                        source={images.bearGray}
                                         style={styles.detailHeadshot}
                                     />
                                     <Text style={styles.detailName}>
@@ -93,21 +93,21 @@ export default class relationChain extends React.Component {
                     <View style={styles.tips}>
                         <View style={styles.row1}>
                             <ImageBackground
-                                source={imageUrl.bearGray}
+                                source={images.bearGray}
                                 style={styles.tipsHeadshot}
                             />
                             <ImageBackground
-                                source={imageUrl.bearGray}
+                                source={images.bearGray}
                                 style={styles.tipsLeft}
                             />
                         </View>
                         <View style={styles.row2}>
                             <ImageBackground
-                                source={imageUrl.bearGray}
+                                source={images.bearGray}
                                 style={styles.tipsRight}
                             />
-                             <ImageBackground
-                                source={imageUrl.bearGray}
+                            <ImageBackground
+                                source={images.bearGray}
                                 style={styles.tipsHeadshot}
                             />
                         </View>
@@ -118,7 +118,7 @@ export default class relationChain extends React.Component {
     }
 }
 
-const imageUrl = {
+const images = {
     bgIntro: require('../../assets/relationChain/bg-intro.png'),
     bearGray: require('../../assets/relationChain/bear-gray.png'),
     bearPurple: require('../../assets/relationChain/bear-purple.png'),

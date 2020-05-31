@@ -9,7 +9,7 @@ export default class Card extends React.PureComponent {
                 <View style={styles.base}>
                     <View style={styles.left}>
                         <ImageBackground
-                            source={imageUrl.order[this.props.index]}
+                            source={images.order[this.props.index]}
                             style={styles.orderimg}>
                             {![0, 1, 2].includes(this.props.index) && (
                                 <Text style={styles.ordertext}>
@@ -22,7 +22,7 @@ export default class Card extends React.PureComponent {
                         </ImageBackground>
 
                         <ImageBackground
-                            source={imageUrl.headshot}
+                            source={images.headshot}
                             style={styles.headshot}
                         />
 
@@ -44,7 +44,7 @@ export default class Card extends React.PureComponent {
     }
 }
 
-const imageUrl = {
+const images = {
     order: [
         require('../../assets/punchList/order1.png'),
         require('../../assets/punchList/order2.png'),
