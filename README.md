@@ -10,3 +10,4 @@
 - `cd ios`
 - `pod install`
 - `cd ../ & yarn react-native run-ios`
+- `全局搜索，给成本地的路径GCC_PREFIX_HEADER = "/Users/qiaoyuxia/TBears/ios/TBears/PrefixHeader.pch";`
