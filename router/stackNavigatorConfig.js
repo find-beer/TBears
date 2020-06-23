@@ -1,4 +1,4 @@
 export default {
-    initialRouteName: 'Mine',
-    headerMode: 'none'
-}
+    initialRouteName: 'ticketType',
+    headerMode: 'none',
+};

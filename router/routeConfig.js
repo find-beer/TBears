@@ -1,66 +1,78 @@
-import MainTabScreen from '@views/mainTab/index'
-import LoginScreen from '@views/login/index'
-import InteractiveNotification from '@views/notice/interactiveNotification'
-import ActivityList from '@views/notice/activityList'
-import FriendsList from '@views/notice/friendsList'
-import AddFriends from '@views/notice/addFriends'
-import QrCode from '@views/qrCode'
-import Complaint from '@views/complaint'
-import Store from '@views/store'
-import Config from '@views/config'
-import StoreList from '@views/storeList'
-import EditInfo from '@views/editInfo'
-import Publish from '@views/publish/index'
-import userPublish from '@views/userPublish/index'
-import Activities from '@views/activities/index' 
+import MainTabScreen from '@views/mainTab/index';
+import LoginScreen from '@views/login/index';
+import InteractiveNotification from '@views/notice/interactiveNotification';
+import ActivityList from '@views/notice/activityList';
+import FriendsList from '@views/notice/friendsList';
+import AddFriends from '@views/notice/addFriends';
+import QrCode from '@views/qrCode';
+import Complaint from '@views/complaint';
+import Store from '@views/store';
+import Config from '@views/config';
+import StoreList from '@views/storeList';
+import EditInfo from '@views/editInfo';
+import Publish from '@views/publish/index';
+import userPublish from '@views/userPublish/index';
+import ticketType from '@views/ticketType/index';
+import selectTicketTypes from '@views/selectTicketTypes/index';
+import ticketDetail from '@views/ticketDetail/index';
+import Activities from '@views/activities/index';
 
 export default {
     MainTab: {
-        screen: MainTabScreen
+        screen: MainTabScreen,
     },
     Login: {
-        screen: LoginScreen
+        screen: LoginScreen,
     },
     InteractiveNotification: {
-        screen: InteractiveNotification
+        screen: InteractiveNotification,
     },
     ActivityList: {
-        screen: ActivityList
+        screen: ActivityList,
     },
     FriendsList: {
-        screen: FriendsList
+        screen: FriendsList,
     },
     AddFriends: {
-        screen: AddFriends
+        screen: AddFriends,
     },
-    QrCode:{
-        screen:QrCode
+    QrCode: {
+        screen: QrCode,
     },
-    Complaint:{
-        screen:Complaint
+    Complaint: {
+        screen: Complaint,
     },
-    Store:{
-        screen:Store
+    Store: {
+        screen: Store,
     },
-    StoreList:{
-        screen:StoreList
+    StoreList: {
+        screen: StoreList,
     },
-    Config:{
-        screen:Config
+    Config: {
+        screen: Config,
     },
-    EditInfo:{
-        screen:EditInfo
+    EditInfo: {
+        screen: EditInfo,
     },
-    Mine:{
-        screen:MainTabScreen
+    Mine: {
+        screen: MainTabScreen,
     },
     Publish: {
-        screen: Publish
+        screen: Publish,
     },
     userPublish: {
-        screen: userPublish
+        screen: userPublish,
     },
     Activities: {
-        screen: Activities
-    }
-}
+        screen: Activities,
+    },
+    ticketType: {
+        screen: ticketType,
+    },
+    selectTicketTypes: {
+        screen: selectTicketTypes,
+    },
+    ticketDetail: {
+        screen: ticketDetail,
+    },
+};
