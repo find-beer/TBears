@@ -6,12 +6,39 @@ import Card from './card';
 import {ifIphoneX} from '@utils/screenUtil';
 
 export default class ActivityDetail extends React.Component {
+    static cardConfig = [
+        {
+            title: '活动标题',
+            content: '起来团建',
+        },
+        {
+            title: '活动标题',
+            content: '起来团建',
+        },
+        {
+            title: '活动标题',
+            content: '起来团建',
+        },
+        {
+            title: '活动标题',
+            content: '起来团建',
+        },
+        {
+            title: '活动标题',
+            content: '起来团建',
+        },
+        {
+            title: '活动标题',
+            content: '起来团建',
+        },
+    ];
+
     render() {
         return (
             <View style={styles.container}>
                 <Header title="活动详情" left={null} />
                 <View style={styles.content}>
-                    <Card />
+                    <Card data={ActivityDetail.cardConfig}  />
                     <ImageBackground
                         source={images.photo}
                         style={styles.photo}

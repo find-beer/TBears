@@ -1,14 +1,37 @@
 import React from 'react';
-import {StyleSheet, View, Text, ImageBackground} from 'react-native';
+import {
+    StyleSheet,
+    View,
+    Text,
+    ImageBackground,
+    TouchableOpacity,
+} from 'react-native';
 import {scaleSize} from '@utils/scaleUtil';
+import fetch from '@network';
 
 export default class Action extends React.Component {
-    state = {
-        likeNum: 0,
-        joinNum: 0,
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            likeNum: 0,
+            commentNum: 0,
+        };
+    }
 
-    giveLike() {}
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            likeNum: nextProps.data.likeNum,
+            commentNum: nextProps.data.commentNum,
+        });
+    }
+
+    giveLike() {
+        fetch('http://121.89.223.103:8080/like/operate', 'post', {
+            infoId: 1,
+            infoType: 2,
+            state: 0,
+        }).then(res => {});
+    }
 
     join() {}
 
@@ -23,7 +46,7 @@ export default class Action extends React.Component {
             },
             {
                 icon: images.joinImage,
-                text: `评论${this.state.joinNum}`,
+                text: `评论${this.state.commentNum}`,
                 hander: this.join,
             },
             {
@@ -37,13 +60,15 @@ export default class Action extends React.Component {
             <View style={styles.container}>
                 {list.map(item => {
                     return (
-                        <View style={styles.action}>
-                            <ImageBackground
-                                source={item.icon}
-                                style={styles.icon}
-                            />
-                            <Text>{item.text}</Text>
-                        </View>
+                        <TouchableOpacity key={item.text} onPress={item.hander}>
+                            <View style={styles.action}>
+                                <ImageBackground
+                                    source={item.icon}
+                                    style={styles.icon}
+                                />
+                                <Text>{item.text}</Text>
+                            </View>
+                        </TouchableOpacity>
                     );
                 })}
             </View>

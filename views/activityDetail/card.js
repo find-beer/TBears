@@ -1,75 +1,76 @@
+/**
+ *  卡片信息
+ */
+
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
+import {BoxShadow} from 'react-native-shadow';
 import {scaleSize, scaleFont} from '@utils/scaleUtil';
 
-export default class Apply extends React.Component {
-    formItems = [
-        {
-            label: '【活动时间】',
-            key: '2019-08-23  9:00',
-        },
-        {
-            label: '【活动地址】',
-            key: '北京市朝阳区XXXXXXXXXX',
-        },
-        {
-            label: '【参加人数】',
-            key: '2019-08-23  9:00',
-        },
-        {
-            label: '【参加费用】',
-            key: '2019-08-23  9:00',
-        },
-    ];
-
-    render() {
-        return (
-            <View style={styles.container}>
-                <Text style={styles.header}>一起来团建嗨起来！</Text>
-                <View style={styles.content}>
-                    {this.formItems.map(item => {
-                        return (
-                            <View style={styles.formItem}>
-                                <Text style={styles.label}>{item.label}</Text>
-                                <Text style={styles.value}>{item.key}</Text>
+export default props => {
+    return (
+        <View style={styles.container}>
+            {props.data.map(item => {
+                return (
+                    <View style={styles.itemContainer}>
+                        <View style={styles.itemContent}>
+                            <View style={styles.tag} />
+                            <View style={styles.info}>
+                                <Text style={styles.title}>{item.title}</Text>
+                                <Text style={styles.content}>
+                                    {item.content}
+                                </Text>
                             </View>
-                        );
-                    })}
-                </View>
-            </View>
-        );
-    }
-}
+                        </View>
+                    </View>
+                );
+            })}
+        </View>
+    );
+};
+
+const shadowOpt = {
+    width: 972,
+    height: 560,
+    color: '#000',
+    border: 1,
+    radius: 24,
+    opacity: 24,
+    x: 3,
+    y: 24,
+};
 
 const styles = StyleSheet.create({
     container: {
-        position: 'relative',
-        marginBottom: scaleSize(54),
-    },
-    header: {
-        fontSize: scaleSize(58),
-        color: '#564F5F',
-        textAlign: 'center',
-        paddingBottom: scaleSize(22),
-        paddingLeft: scaleSize(54),
-        paddingRight: scaleSize(54),
-    },
-    formItem: {
-        fontSize: scaleSize(48),
+        width: scaleSize(972),
+        height: scaleSize(560),
         flexDirection: 'row',
+        flexWrap: 'wrap',
+    },
+    itemContainer: {
+        width: '50%',
+        height: '50%',
+        justifyContent: 'center',
         alignItems: 'center',
-        paddingTop: scaleSize(32),
-        paddingBottom: scaleSize(32),
-        paddingLeft: scaleSize(54),
-        paddingRight: scaleSize(54),
-        borderBottomWidth: scaleSize(1),
-        borderBottomColor: '#F2F2F2',
     },
-    label: {
-        color: '#564F5F',
-        marginRight: scaleFont(36),
+    itemContent: {
+        flexDirection: 'row',
     },
-    value: {
-        color: '#564F5F',
+    tag: {
+        width: scaleSize(12),
+        height: scaleSize(32),
+        marginRight: scaleSize(24),
+        backgroundColor: '#8E79FE',
+        borderRadius: scaleSize(7),
+    },
+    title: {
+        fontSize: scaleFont(40),
+        color: '#999999',
+        alignItems: 'center',
+        marginBottom: scaleSize(24),
+    },
+    content: {
+        fontSize: scaleFont(48),
+        color: '#333333',
     },
 });

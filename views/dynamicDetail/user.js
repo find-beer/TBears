@@ -6,18 +6,22 @@ import React from 'react';
 import {StyleSheet, View, Text, ImageBackground} from 'react-native';
 import {scaleSize} from '@utils/scaleUtil';
 
-export default () => (
-    <View style={{...styles.isRow, ...styles.container}}>
-        <ImageBackground source={images.headshot} style={styles.headshot} />
-        <View>
-            <Text style={styles.name}>叄个键盘</Text>
-            <View style={styles.isRow}>
-                <Text style={styles.city}>北京 丨</Text>
-                <Text style={styles.time}>今天9:00</Text>
+export default props => {
+    const {data} = props;
+    const {userVO, cityName, publishTime} = data;
+    return (
+        <View style={{...styles.isRow, ...styles.container}}>
+            <ImageBackground source={images.headshot} style={styles.headshot} />
+            <View>
+                <Text style={styles.name}>{userVO.userName}</Text>
+                <View style={styles.isRow}>
+                    <Text style={styles.city}>{cityName} 丨</Text>
+                    <Text style={styles.time}>{publishTime}</Text>
+                </View>
             </View>
         </View>
-    </View>
-);
+    );
+};
 
 const images = {
     headshot: require('../../assets/punchList/headshot.png'),
