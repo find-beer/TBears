@@ -1,4 +1,4 @@
 export default {
-    initialRouteName: 'ticketType',
+    initialRouteName: 'Publish',
     headerMode: 'none',
 };
