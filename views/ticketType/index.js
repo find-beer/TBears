@@ -190,6 +190,7 @@ const styles = StyleSheet.create({
 
 export default class tickeType extends React.Component {
     state = {
+        isRefundPage: false,
         returnTicData: [
             {
                 title: '支持退票，委托探熊退款',
@@ -221,7 +222,11 @@ export default class tickeType extends React.Component {
         Alert.alert('哇咔咔，删除功能还没有联调哦');
     };
     handleGoRefundTicketEvent = () => {
-        Alert.alert('哇咔咔，去往退票页面,还没有打通哦');
+        // Alert.alert('哇咔咔，去往退票页面,还没有打通哦');
+        // this.props.navigation.navigate('屏幕地址')
+        this.setState({
+            isRefundPage: true,
+        });
     };
     handleSelectEvent = value => {
         const {returnTicData} = this.state;
@@ -236,10 +241,15 @@ export default class tickeType extends React.Component {
         this.setState({returnTicData});
     };
     render() {
-        const {returnTicData, rtTnstructionsData, dataList} = this.state;
+        const {
+            returnTicData,
+            rtTnstructionsData,
+            dataList,
+            isRefundPage,
+        } = this.state;
         return (
             <>
-                {!true ? (
+                {!isRefundPage ? (
                     <View style={styles.container}>
                         <Header title="票种" left={null} />
                         <View style={styles.ticketTypeListWrap}>

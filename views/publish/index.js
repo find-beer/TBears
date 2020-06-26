@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, Text, TextInput, TouchableOpacity} from 'react-native';
+import {
+    View,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    Alert,
+    Image,
+} from 'react-native';
 import DatePicker from '@views/common/datePicker';
 import Picker from '@views/common/picker';
 import Header from '@views/common/header';
@@ -7,6 +14,8 @@ import {StyleSheet} from 'react-native';
 import {scaleSize, scaleFont} from '@utils/scaleUtil';
 import Button from '@views/common/button';
 import dateFormat from '@utils/formatDate';
+import enhanceFetch from '@utils/fetch';
+const arrow = require('../../assets/mine/arrow_right.png');
 
 // infoType: 1输入框  2日期选择 3页面跳转 4picker
 const activityInfos = [
@@ -104,11 +113,14 @@ export default class Publish extends React.Component {
             submitInfo: {
                 activityTitle: '',
                 activityTime: '',
-                numberCount: '',
+                // numberCount: '',
                 enrollEndTime: '',
+                location: '',
                 activityAddress: '',
-                ticketVoList: [],
-                activityType: '',
+                // ticketVoList: [],
+                activityType: 2,
+                state: 2,
+                needInfo: 0, //0否 1是
             },
         };
     }
@@ -161,7 +173,49 @@ export default class Publish extends React.Component {
         });
         this.togglePicker();
     };
+    //存草稿
+    handleSaveDraftEvent = () => {};
 
+    //查询存草稿
+    handleQueryDraftEvent = () => {
+        enhanceFetch('/activity/querydraft', 'get').then(res => {
+            console.log(res, '回显示处理');
+        });
+    };
+
+    handlePublishEvent = () => {
+        const {
+            activityTitle,
+            activityTime,
+            enrollEndTime,
+            activityAddress,
+        } = this.state.submitInfo;
+        if (!activityTitle) {
+            Alert.alert('请填写活动标题');
+        } else if (!activityTime) {
+            Alert.alert('请填写活动时间');
+        } else if (!enrollEndTime) {
+            Alert.alert('请选择活动结束时间');
+        } else if (!activityAddress) {
+            Alert.alert('请填写活动位置');
+        } else {
+            enhanceFetch(
+                '/activity/publish',
+                'post',
+                this.state.submitInfo,
+            ).then(res => {
+                console.log(res);
+            });
+        }
+    };
+    goToAddTicketPage = () => {
+        console.log('增加票种');
+        this.props.navigation.navigate('ticketType');
+    };
+    componentDidMount() {
+        console.log('查询草稿箱');
+        this.handleQueryDraftEvent();
+    }
     render() {
         const {submitInfo, showCalendar, showPicker} = this.state;
         return (
@@ -195,8 +249,16 @@ export default class Publish extends React.Component {
                                     )}
                                 </TouchableOpacity>
                             ) : (
-                                <TouchableOpacity>
-                                    <Text>{item.placeholder}</Text>
+                                <TouchableOpacity
+                                    onPress={this.goToAddTicketPage}
+                                    style={styles.returnTicketBtn}>
+                                    <Text style={styles.returnTicketTxt}>
+                                        {item.placeholder}
+                                    </Text>
+                                    <Image
+                                        source={arrow}
+                                        style={styles.arrow}
+                                    />
                                 </TouchableOpacity>
                             )}
                         </InfoLine>
@@ -212,11 +274,16 @@ export default class Publish extends React.Component {
                 />
 
                 <View style={styles.footer}>
-                    <Button style={{flex: 1}} title="存为草稿" />
+                    <Button
+                        style={{flex: 1}}
+                        title="存为草稿"
+                        onTap={this.handleSaveDraftEvent}
+                    />
                     <Button
                         style={{backgroundColor: '#564F5F', flex: 1}}
                         textStyle={{color: '#FFFFFF'}}
                         title="立即发布"
+                        onTap={this.handlePublishEvent}
                     />
                 </View>
 
@@ -274,5 +341,16 @@ const styles = StyleSheet.create({
     },
     placeholder: {
         color: '#999999',
+    },
+    returnTicketBtn: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    returnTicketTxt: {
+        color: '#999999',
+    },
+    arrow: {
+        width: scaleSize(56),
+        height: scaleSize(56),
     },
 });
