@@ -47,7 +47,8 @@ function enhanceFetch(pathname, method, params) {
             })
             .then(resjson => {
                 console.info('sourcedata', resjson);
-                resolve(_.pickBy(resjson.data, Boolean));
+                // resolve(_.pickBy(resjson.data, Boolean));
+                resolve(resjson.data);
             })
             .catch(err => {
                 console.error('errmsg', err);

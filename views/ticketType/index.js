@@ -8,6 +8,7 @@ import {
     Image,
     Alert,
     TouchableOpacity,
+    AsyncStorage,
 } from 'react-native';
 import Header from '@views/common/header';
 import {scaleSize, scaleFont} from '@utils/scaleUtil';
@@ -206,20 +207,45 @@ export default class tickeType extends React.Component {
             '2、本活动由主办法委托探熊待处理退款事宜处理退款事宜；',
             '3、本活动由主办法委托探熊待处理退款事宜。',
         ],
-        dataList: [{key: 'Devin'}],
+        dataLists: [
+            // {
+            //     assemble: 0, //拼团
+            //     assembleMemberCount: 3, //拼团人数
+            //     assemblePrice: 30, //拼团价格
+            //     id: 0, //主键
+            //     illustration: '一个学生票的说明', //说明
+            //     price: 60, //价格
+            //     ticketName: '学生票', //票种
+            //     ticketState: 0, //状态
+            // }
+        ],
     };
     handleSaveEvent = () => {
         Alert.alert('哇咔咔，保存功能还没有联调哦');
     };
 
     handleNewTickeTypeEvent = () => {
-        Alert.alert('哇咔咔，创建新票种功能还没有联调哦');
+        this.props.navigation.navigate('ticketDetail');
     };
-    handleEditEvent = () => {
-        Alert.alert('哇咔咔，编辑功能还没有联调哦');
+    handleEditEvent = item => {
+        this.props.navigation.navigate('ticketDetail', item);
     };
-    handleDeleteEvent = () => {
-        Alert.alert('哇咔咔，删除功能还没有联调哦');
+    handleDeleteEvent = id => {
+        const {dataList} = this.state;
+        let newArr = dataList.filter(item => item.id !== id);
+        this.setState({dataList: newArr}, () => {
+            this._storeData(newArr);
+        });
+    };
+    _storeData = async infoData => {
+        try {
+            await AsyncStorage.setItem(
+                'ticketTypeLists',
+                JSON.stringify(infoData),
+            );
+        } catch (error) {
+            Alert.alert(error);
+        }
     };
     handleGoRefundTicketEvent = () => {
         // Alert.alert('哇咔咔，去往退票页面,还没有打通哦');
@@ -240,6 +266,24 @@ export default class tickeType extends React.Component {
         });
         this.setState({returnTicData});
     };
+    _retrieveData = async () => {
+        try {
+            const value = await AsyncStorage.getItem('ticketTypeLists');
+            if (value !== null) {
+                // We have data!!
+                const dataList = JSON.parse(value);
+                console.log(dataList);
+                this.setState({dataList});
+            }
+        } catch (error) {
+            Alert.alert(error);
+        }
+    };
+    componentDidMount() {
+        // AsyncStorage.clear();
+
+        this._retrieveData();
+    }
     render() {
         const {
             returnTicData,
@@ -259,6 +303,7 @@ export default class tickeType extends React.Component {
                                     <>
                                         <ImageBackground
                                             style={styles.tickeCard}
+                                            key={item.id}
                                             source={require('../../assets/publish/ticket-card.png')}>
                                             <View
                                                 style={styles.tickeCardContent}>
@@ -276,14 +321,20 @@ export default class tickeType extends React.Component {
                                                         style={
                                                             styles.studentTicket
                                                         }>
-                                                        学生票
+                                                        {item.ticketName}
                                                     </Text>
-                                                    {/* <Text
-                                                        style={
-                                                            styles.studentTicket
-                                                        }>
-                                                        拼团价（3人）
-                                                    </Text> */}
+                                                    {item.assemble > 0 && (
+                                                        <Text
+                                                            style={
+                                                                styles.studentTicket
+                                                            }>
+                                                            拼团价（
+                                                            {
+                                                                item.assembleMemberCount
+                                                            }
+                                                            人）
+                                                        </Text>
+                                                    )}
                                                 </View>
                                                 <View
                                                     style={
@@ -293,20 +344,23 @@ export default class tickeType extends React.Component {
                                                         style={
                                                             styles.GroupPrice
                                                         }>
-                                                        拼团价
+                                                        价格
                                                     </Text>
                                                     <Text
                                                         style={
                                                             styles.tickePrice
                                                         }>
-                                                        60元
+                                                        {item.price}元
                                                     </Text>
-                                                    {/* <Text
-                                                        style={
-                                                            styles.tickePrice
-                                                        }>
-                                                        30元
-                                                    </Text> */}
+                                                    {item.assemble > 0 && (
+                                                        <Text
+                                                            style={
+                                                                styles.tickePrice
+                                                            }>
+                                                            {item.assemblePrice}
+                                                            元
+                                                        </Text>
+                                                    )}
                                                 </View>
                                             </View>
                                             <View style={styles.btnWrap}>
@@ -317,7 +371,10 @@ export default class tickeType extends React.Component {
                                                         color: '#333333',
                                                         fontSize: scaleSize(42),
                                                     }}
-                                                    onTap={this.handleEditEvent}
+                                                    onTap={this.handleEditEvent.bind(
+                                                        this,
+                                                        item,
+                                                    )}
                                                 />
                                                 <Button
                                                     style={styles.butRight}
@@ -326,15 +383,15 @@ export default class tickeType extends React.Component {
                                                         color: '#999999',
                                                         fontSize: scaleSize(42),
                                                     }}
-                                                    onTap={
-                                                        this.handleDeleteEvent
-                                                    }
+                                                    onTap={this.handleDeleteEvent.bind(
+                                                        this,
+                                                        item.id,
+                                                    )}
                                                 />
                                             </View>
                                         </ImageBackground>
                                         <Text style={styles.item}>
-                                            说明：需持学生证需持学生证需持学生证…需持学生证需持
-                                            学生证需持学生证需持学生证需持学生证需持学生证…
+                                            说明：{item.illustration}
                                         </Text>
                                         {index == dataList.length - 1 && (
                                             <View style={styles.returnTicket}>

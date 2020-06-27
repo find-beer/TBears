@@ -6,6 +6,7 @@ import {
     TouchableOpacity,
     Alert,
     Image,
+    AsyncStorage,
 } from 'react-native';
 import DatePicker from '@views/common/datePicker';
 import Picker from '@views/common/picker';
@@ -63,37 +64,6 @@ const activityInfos = [
     },
 ];
 
-const typeMap = [
-    {
-        value: '电影演出',
-        label: '电影演出',
-    },
-    {
-        value: '轰趴桌游',
-        label: '轰趴桌游',
-    },
-    {
-        value: '户外运动',
-        label: '户外运动',
-    },
-    {
-        value: '游乐园',
-        label: '游乐园',
-    },
-    {
-        value: '沉浸式娱乐',
-        label: '沉浸式娱乐',
-    },
-    {
-        value: '文化体验',
-        label: '文化体验',
-    },
-    {
-        value: '新奇探索',
-        label: '新奇探索',
-    },
-];
-
 const InfoLine = props => (
     <View style={styles.lineWrap}>
         <View>
@@ -107,6 +77,7 @@ export default class Publish extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            typeMap: [],
             showCalendar: false,
             showPicker: false,
             currentFiled: '',
@@ -118,10 +89,11 @@ export default class Publish extends React.Component {
                 location: '',
                 activityAddress: '',
                 // ticketVoList: [],
-                activityType: 2,
+                activityType: '',
                 state: 2,
                 needInfo: 0, //0否 1是
             },
+            ticketTypesNum: 0,
         };
     }
 
@@ -183,6 +155,19 @@ export default class Publish extends React.Component {
         });
     };
 
+    getAllActives = () => {
+        enhanceFetch('/common/activitytype', 'get').then(res => {
+            const typeMap = res.map(item => {
+                return {
+                    label: item._2,
+                    value: item._2,
+                    type: item._3,
+                };
+            });
+            this.setState({typeMap});
+        });
+    };
+
     handlePublishEvent = () => {
         const {
             activityTitle,
@@ -209,15 +194,37 @@ export default class Publish extends React.Component {
         }
     };
     goToAddTicketPage = () => {
-        console.log('增加票种');
         this.props.navigation.navigate('ticketType');
     };
+
+    _retrieveData = async () => {
+        try {
+            const value = await AsyncStorage.getItem('ticketTypeLists');
+            if (value !== null) {
+                // We have data!!
+                let ticketTypeLists = JSON.parse(value);
+                this.setState({ticketTypesNum: ticketTypeLists.length});
+            }
+        } catch (error) {
+            Alert.alert(error);
+        }
+    };
     componentDidMount() {
-        console.log('查询草稿箱');
+        this._retrieveData();
         this.handleQueryDraftEvent();
+        this.getAllActives();
+    }
+    componentDidUpdate() {
+        this._retrieveData();
     }
     render() {
-        const {submitInfo, showCalendar, showPicker} = this.state;
+        const {
+            submitInfo,
+            showCalendar,
+            showPicker,
+            typeMap,
+            ticketTypesNum,
+        } = this.state;
         return (
             <View style={styles.contentWrap}>
                 <Header title="发布活动" />
@@ -253,7 +260,9 @@ export default class Publish extends React.Component {
                                     onPress={this.goToAddTicketPage}
                                     style={styles.returnTicketBtn}>
                                     <Text style={styles.returnTicketTxt}>
-                                        {item.placeholder}
+                                        {ticketTypesNum > 0
+                                            ? `已设置${ticketTypesNum}个`
+                                            : item.placeholder}
                                     </Text>
                                     <Image
                                         source={arrow}
@@ -295,14 +304,15 @@ export default class Publish extends React.Component {
                     display="default"
                     mode="datetime"
                 />
-
-                <Picker
-                    visible={showPicker}
-                    selectedValue={submitInfo.activityType}
-                    onConfirm={this.onPickerSelect}
-                    onCancel={this.togglePicker}
-                    data={typeMap}
-                />
+                {typeMap.length > 0 && (
+                    <Picker
+                        visible={showPicker}
+                        selectedValue={submitInfo.activityType}
+                        onConfirm={this.onPickerSelect}
+                        onCancel={this.togglePicker}
+                        data={typeMap}
+                    />
+                )}
             </View>
         );
     }

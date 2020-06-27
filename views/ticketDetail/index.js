@@ -1,35 +1,10 @@
 import React from 'react';
-import {View, Text, TextInput, Switch, Alert} from 'react-native';
+import {View, Text, TextInput, Switch, Alert, AsyncStorage} from 'react-native';
 import Header from '@views/common/header';
 import {StyleSheet} from 'react-native';
 import {scaleSize, scaleFont} from '@utils/scaleUtil';
 import Button from '@views/common/button';
-
-const activityInfos = [
-    {
-        title: '票种名称：',
-        placeholder: '请填写',
-        filedName: 'ticketName',
-    },
-    {
-        title: '价格：',
-        placeholder: '请选择',
-        filedName: 'ticketPrice',
-    },
-];
-
-const groupInfos = [
-    {
-        title: '拼团人数',
-        placeholder: '请填写',
-        filedName: 'groupPeopleNum',
-    },
-    {
-        title: '拼团价',
-        placeholder: '请选择',
-        filedName: 'groupActivityPrice',
-    },
-];
+let ticketTypeLists = [];
 
 const InfoLine = props => (
     <View style={styles.lineWrap}>
@@ -58,12 +33,42 @@ export default class ticketDetail extends React.Component {
         this.state = {
             submitInfo: {
                 ticketName: '',
-                ticketPrice: '',
-                isAllowGroup: true,
-                groupPeopleNum: '',
-                groupActivityPrice: '',
-                ticketPriceExplain: '',
+                price: '',
+                assembleTage: false,
+                assembleMemberCount: '',
+                assemblePrice: '',
+                illustration: '',
+                assemble: 0,
+                ticketState: 0,
             },
+            activityInfos: [
+                {
+                    title: '票种名称：',
+                    placeholder: '请填写',
+                    filedName: 'ticketName',
+                    value: '',
+                },
+                {
+                    title: '价格：',
+                    placeholder: '请选择',
+                    filedName: 'price',
+                    value: '',
+                },
+            ],
+            groupInfos: [
+                {
+                    title: '拼团人数',
+                    placeholder: '请填写',
+                    filedName: 'assembleMemberCount',
+                    value: '',
+                },
+                {
+                    title: '拼团价',
+                    placeholder: '请选择',
+                    filedName: 'assemblePrice',
+                    value: '',
+                },
+            ],
         };
     }
 
@@ -77,23 +82,95 @@ export default class ticketDetail extends React.Component {
     };
     handleSaveEvent = () => {
         let {submitInfo} = this.state;
-        Alert.alert('保存');
+        const {
+            ticketName,
+            price,
+            assembleTage,
+            assembleMemberCount,
+            assemblePrice,
+            illustration,
+        } = submitInfo;
+        if (!ticketName) {
+            Alert.alert('请填写票种名称');
+        } else if (!price) {
+            Alert.alert('请填写票价');
+        } else if (!illustration) {
+            Alert.alert('请填写票种说明');
+        } else {
+            if (assembleTage) {
+                if (!assembleMemberCount) {
+                    Alert.alert('请填写拼团人数');
+                } else if (!assemblePrice) {
+                    Alert.alert('请填写拼团价');
+                } else {
+                    submitInfo.assemble = 1;
+                    if (!submitInfo.id) {
+                        submitInfo.id = Date.now();
+                        ticketTypeLists.push(submitInfo);
+                    } else {
+                        let data = ticketTypeLists;
+                        data.map((item, index) => {
+                            if ((item.id = submitInfo.id)) {
+                                console.log(index);
+                                ticketTypeLists[index] = submitInfo;
+                            }
+                        });
+                    }
+
+                    this._storeData(ticketTypeLists);
+                }
+            } else {
+                submitInfo.assemble = 0;
+                if (!submitInfo.id) {
+                    submitInfo.id = Date.now();
+                    ticketTypeLists.push(submitInfo);
+                } else {
+                    let data = ticketTypeLists;
+                    data.map((item, index) => {
+                        if ((item.id = submitInfo.id)) {
+                            console.log(index);
+                            ticketTypeLists[index] = submitInfo;
+                        }
+                    });
+                }
+
+                this._storeData(ticketTypeLists);
+                // Alert.alert('保存');
+            }
+        }
+    };
+    _storeData = async infoData => {
+        try {
+            await AsyncStorage.setItem(
+                'ticketTypeLists',
+                JSON.stringify(infoData),
+            );
+            this.props.navigation.replace('ticketType');
+        } catch (error) {
+            Alert.alert(error);
+        }
+    };
+    _retrieveData = async () => {
+        try {
+            const value = await AsyncStorage.getItem('ticketTypeLists');
+            if (value !== null) {
+                // We have data!!
+                ticketTypeLists = JSON.parse(value);
+            }
+        } catch (error) {
+            Alert.alert(error);
+        }
     };
     handleSwitchEvent = () => {
         const {submitInfo} = this.state;
-        submitInfo.isAllowGroup = !submitInfo.isAllowGroup;
-        this.setState(
-            {
-                submitInfo,
-            },
-            () => {
-                console.log(this.state.submitInfo);
-            },
-        );
+        submitInfo.assembleTage = !submitInfo.assembleTage;
+        this.setState({
+            submitInfo,
+        });
     };
-    handleGetticketPriceExplainEvent = value => {
+    handleGetillustrationEvent = value => {
         const {submitInfo} = this.state;
-        submitInfo.ticketPriceExplain = value;
+        submitInfo.illustration = value;
         this.setState(
             {
                 submitInfo,
@@ -103,8 +180,21 @@ export default class ticketDetail extends React.Component {
             },
         );
     };
+    componentDidMount() {
+        const {submitInfo, activityInfos, groupInfos} = this.state;
+        const newInfo = this.props.navigation.state.params;
+        if (newInfo) {
+            newInfo.assembleTage = newInfo.assemble ? true : false;
+            activityInfos[0].value = newInfo.ticketName;
+            activityInfos[1].value = newInfo.price;
+            groupInfos[0].value = newInfo.assembleMemberCount;
+            groupInfos[1].value = newInfo.assemblePrice;
+            this.setState({submitInfo: newInfo, activityInfos, groupInfos});
+        }
+        this._retrieveData();
+    }
     render() {
-        const {submitInfo} = this.state;
+        const {submitInfo, activityInfos, groupInfos} = this.state;
         return (
             <View style={styles.contentWrap}>
                 <Header title="票种详情页" />
@@ -117,6 +207,7 @@ export default class ticketDetail extends React.Component {
                                     item,
                                 )}
                                 placeholder={item.placeholder}
+                                defaultValue={item.value}
                             />
                         </InfoLine>
                     </View>
@@ -126,10 +217,10 @@ export default class ticketDetail extends React.Component {
                         <Text style={styles.lineTitle}>是否允许拼团</Text>
                         <Switch
                             onValueChange={this.handleSwitchEvent}
-                            value={submitInfo.isAllowGroup}
+                            value={submitInfo.assembleTage}
                         />
                     </View>
-                    {submitInfo.isAllowGroup && (
+                    {submitInfo.assembleTage && (
                         <View>
                             {groupInfos.map((item, index) => (
                                 <View key={index}>
@@ -140,6 +231,7 @@ export default class ticketDetail extends React.Component {
                                                 item,
                                             )}
                                             placeholder={item.placeholder}
+                                            defaultValue={item.value}
                                         />
                                     </ChildrenLine>
                                 </View>
@@ -150,13 +242,14 @@ export default class ticketDetail extends React.Component {
                 <View style={styles.ticketTypesWrap}>
                     <Text style={styles.ticketTypesTitle}>票种说明</Text>
                     <TextInput
+                        defaultValue={submitInfo.illustration}
                         multiline={true}
                         style={styles.desc}
                         numberOfLines={10}
                         maxLength={150}
                         placeholder="此处添加票种说明"
                         textAlignVertical="top"
-                        onChangeText={this.handleGetticketPriceExplainEvent}
+                        onChangeText={this.handleGetillustrationEvent}
                     />
                 </View>
                 <Button

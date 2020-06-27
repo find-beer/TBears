@@ -1,4 +1,4 @@
 export default {
-    initialRouteName: 'MainTab',
+    initialRouteName: 'Publish',
     headerMode: 'none',
 };
