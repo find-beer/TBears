@@ -145,7 +145,8 @@ export default class ticketDetail extends React.Component {
                 'ticketTypeLists',
                 JSON.stringify(infoData),
             );
-            this.props.navigation.replace('ticketType');
+            // this.props.navigation.replace('ticketType');
+            this.props.navigation.goBack();
         } catch (error) {
             Alert.alert(error);
         }

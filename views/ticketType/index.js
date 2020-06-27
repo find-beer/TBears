@@ -281,7 +281,9 @@ export default class tickeType extends React.Component {
     };
     componentDidMount() {
         // AsyncStorage.clear();
-
+        this._retrieveData();
+    }
+    componentDidUpdate() {
         this._retrieveData();
     }
     render() {
