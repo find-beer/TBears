@@ -109,6 +109,7 @@ export default class ticketDetail extends React.Component {
                         ticketTypeLists.push(submitInfo);
                     } else {
                         let data = ticketTypeLists;
+
                         data.map((item, index) => {
                             if ((item.id = submitInfo.id)) {
                                 console.log(index);
@@ -116,7 +117,6 @@ export default class ticketDetail extends React.Component {
                             }
                         });
                     }
-
                     this._storeData(ticketTypeLists);
                 }
             } else {
@@ -133,7 +133,6 @@ export default class ticketDetail extends React.Component {
                         }
                     });
                 }
-
                 this._storeData(ticketTypeLists);
                 // Alert.alert('保存');
             }
@@ -146,16 +145,16 @@ export default class ticketDetail extends React.Component {
                 JSON.stringify(infoData),
             );
             // this.props.navigation.replace('ticketType');
+            this.props.navigation.state.params.refresh();
             this.props.navigation.goBack();
         } catch (error) {
-            Alert.alert(error);
+            Alert.alert('抛出错误', error);
         }
     };
     _retrieveData = async () => {
         try {
             const value = await AsyncStorage.getItem('ticketTypeLists');
             if (value !== null) {
-                // We have data!!
                 ticketTypeLists = JSON.parse(value);
             }
         } catch (error) {
@@ -183,7 +182,7 @@ export default class ticketDetail extends React.Component {
     };
     componentDidMount() {
         const {submitInfo, activityInfos, groupInfos} = this.state;
-        const newInfo = this.props.navigation.state.params;
+        const newInfo = this.props.navigation.state.params.value;
         if (newInfo) {
             newInfo.assembleTage = newInfo.assemble ? true : false;
             activityInfos[0].value = newInfo.ticketName;

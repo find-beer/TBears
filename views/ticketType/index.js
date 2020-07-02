@@ -225,10 +225,20 @@ export default class tickeType extends React.Component {
     };
 
     handleNewTickeTypeEvent = () => {
-        this.props.navigation.navigate('ticketDetail');
+        // this.props.navigation.navigate('ticketDetail');
+        this.props.navigation.navigate('ticketDetail', {
+            refresh: () => {
+                this._retrieveData();
+            },
+        });
     };
     handleEditEvent = item => {
-        this.props.navigation.navigate('ticketDetail', item);
+        this.props.navigation.navigate('ticketDetail', {
+            value: item,
+            refresh: () => {
+                this._retrieveData();
+            },
+        });
     };
     handleDeleteEvent = id => {
         const {dataList} = this.state;
@@ -272,7 +282,7 @@ export default class tickeType extends React.Component {
             if (value !== null) {
                 // We have data!!
                 const dataList = JSON.parse(value);
-                console.log(dataList);
+                // console.log(Array.isArray(dataList), dataList);
                 this.setState({dataList});
             }
         } catch (error) {
@@ -280,10 +290,6 @@ export default class tickeType extends React.Component {
         }
     };
     componentDidMount() {
-        // AsyncStorage.clear();
-        this._retrieveData();
-    }
-    componentDidUpdate() {
         this._retrieveData();
     }
     render() {
