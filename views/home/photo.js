@@ -5,8 +5,8 @@ import {scaleSize} from '@utils/scaleUtil';
 export default props => {
     return (
         <View style={styles.container}>
-            {props.data.map(item => {
-                return <ImageBackground source={item} style={styles.photo} />;
+            {props.data.map((item, index) => {
+                return <ImageBackground key={index} source={item} style={styles.photo} />;
             })}
         </View>
     );

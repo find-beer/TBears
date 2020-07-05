@@ -55,7 +55,7 @@ export default {
         screen: EditInfo,
     },
     Mine: {
-        screen: DynamicDetail,
+        screen: Home,
     },
     PunchList: {
         screen: PunchList,

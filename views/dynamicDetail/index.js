@@ -12,6 +12,7 @@ import Action from './action';
 import Comment from './comment';
 import fetch from '@network';
 import _ from 'lodash';
+import eventBus from '@utils/eventBus';
 
 export default class Page extends React.Component {
     constructor(props) {
@@ -25,6 +26,7 @@ export default class Page extends React.Component {
                 content: '',
                 id: 0,
                 likeNum: 0,
+                like: false,
                 location: '',
                 picUrl: '',
                 publishTime: 0,
@@ -51,6 +53,10 @@ export default class Page extends React.Component {
 
     componentDidMount() {
         this.getDetail();
+
+        eventBus.on('dynamicDetail.getDetail', () => {
+            this.getDetail();
+        })
     }
 
     render() {

@@ -12,6 +12,7 @@
     "dependencies": {
         "@react-native-community/masked-view": "^0.1.6",
         "beeshell": "^2.0.11",
+        "events": "^3.1.0",
         "lodash": "^4.17.15",
         "native-base": "^2.13.8",
         "react": "16.9.0",

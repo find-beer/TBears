@@ -4,41 +4,69 @@ import {scaleSize} from '@utils/scaleUtil';
 import Header from '@views/common/header';
 import Card from './card';
 import {ifIphoneX} from '@utils/screenUtil';
+import _ from 'lodash';
+import fetch from '@network';
 
 export default class ActivityDetail extends React.Component {
-    static cardConfig = [
-        {
-            title: '活动标题',
-            content: '起来团建',
-        },
-        {
-            title: '活动标题',
-            content: '起来团建',
-        },
-        {
-            title: '活动标题',
-            content: '起来团建',
-        },
-        {
-            title: '活动标题',
-            content: '起来团建',
-        },
-        {
-            title: '活动标题',
-            content: '起来团建',
-        },
-        {
-            title: '活动标题',
-            content: '起来团建',
-        },
-    ];
+    constructor(props) {
+        super(props);
+        this.state = {
+            detail: {
+                activityTime: '',
+                activityAddress: '',
+                memberCount: '',
+                payGroupId: '', // 参加活动后群聊
+                groupId: '', // 参加活动前群聊
+            },
+        };
+    }
+
+    getDetail() {
+        fetch('http://121.89.223.103:8080/activity/activity/detail', 'get', {id: 1}).then(res => {
+            this.setState({
+                detail: _.merge({}, this.state.detail, res),
+            });
+        });
+    }
+
+    componentDidMount() {
+        this.getDetail();
+    }
 
     render() {
+        const {detail} = this.state;
+        const cardConfig = [
+            {
+                title: '活动时间',
+                content: detail.activityTime,
+            },
+            {
+                title: '活动地点',
+                content: detail.activityAddress,
+            },
+            {
+                title: '活动费用',
+                content: '',
+            },
+            {
+                title: '拼团费用',
+                content: '',
+            },
+            {
+                title: '活动人数',
+                content: detail.memberCount,
+            },
+            {
+                title: '拼团人数',
+                content: '',
+            },
+        ];
+
         return (
             <View style={styles.container}>
                 <Header title="活动详情" left={null} />
                 <View style={styles.content}>
-                    <Card data={ActivityDetail.cardConfig}  />
+                    <Card data={cardConfig} />
                     <ImageBackground
                         source={images.photo}
                         style={styles.photo}

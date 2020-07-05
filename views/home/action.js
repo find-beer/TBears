@@ -35,9 +35,9 @@ export default class Action extends React.Component {
 
         return (
             <View style={styles.container}>
-                {list.map(item => {
+                {list.map((item, index) => {
                     return (
-                        <View style={styles.action}>
+                        <View key={index} style={styles.action}>
                             <ImageBackground
                                 source={item.icon}
                                 style={styles.icon}

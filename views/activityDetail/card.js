@@ -10,9 +10,9 @@ import {scaleSize, scaleFont} from '@utils/scaleUtil';
 export default props => {
     return (
         <View style={styles.container}>
-            {props.data.map(item => {
+            {props.data.map((item, index) => {
                 return (
-                    <View style={styles.itemContainer}>
+                    <View key={index} style={styles.itemContainer}>
                         <View style={styles.itemContent}>
                             <View style={styles.tag} />
                             <View style={styles.info}>
@@ -43,15 +43,14 @@ const shadowOpt = {
 const styles = StyleSheet.create({
     container: {
         width: scaleSize(972),
-        height: scaleSize(560),
         flexDirection: 'row',
         flexWrap: 'wrap',
     },
     itemContainer: {
         width: '50%',
-        height: '50%',
+        height: scaleSize(280),
+        flexDirection: 'row',
         justifyContent: 'center',
-        alignItems: 'center',
     },
     itemContent: {
         flexDirection: 'row',
@@ -62,6 +61,9 @@ const styles = StyleSheet.create({
         marginRight: scaleSize(24),
         backgroundColor: '#8E79FE',
         borderRadius: scaleSize(7),
+    },
+    info: {
+        width: scaleSize(306),
     },
     title: {
         fontSize: scaleFont(40),

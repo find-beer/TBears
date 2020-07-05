@@ -8,11 +8,13 @@ import {
 } from 'react-native';
 import {scaleSize} from '@utils/scaleUtil';
 import fetch from '@network';
+import eventBus from '@utils/eventBus';
 
 export default class Action extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            like: false,
             likeNum: 0,
             commentNum: 0,
         };
@@ -30,7 +32,9 @@ export default class Action extends React.Component {
             infoId: 1,
             infoType: 2,
             state: 0,
-        }).then(res => {});
+        }).then(res => {
+            eventBus.emit('dynamicDetail.getDetail');
+        });
     }
 
     join() {}
@@ -38,15 +42,16 @@ export default class Action extends React.Component {
     share() {}
 
     render() {
+        const {like, likeNum, commentNum} = this.state;
         const list = [
             {
-                icon: images.likeImage,
-                text: `点赞${this.state.likeNum}`,
+                icon: like ? images.likeImage : images.unlikeImage,
+                text: `点赞${likeNum}`,
                 hander: this.giveLike,
             },
             {
                 icon: images.joinImage,
-                text: `评论${this.state.commentNum}`,
+                text: `评论${commentNum}`,
                 hander: this.join,
             },
             {
@@ -60,7 +65,11 @@ export default class Action extends React.Component {
             <View style={styles.container}>
                 {list.map(item => {
                     return (
-                        <TouchableOpacity key={item.text} onPress={item.hander}>
+                        <TouchableOpacity
+                            key={item.text}
+                            onPress={() => {
+                                item.hander();
+                            }}>
                             <View style={styles.action}>
                                 <ImageBackground
                                     source={item.icon}
@@ -77,6 +86,7 @@ export default class Action extends React.Component {
 }
 
 const images = {
+    unlikeImage: require('../../assets/home/unlike.png'),
     likeImage: require('../../assets/home/like.png'),
     joinImage: require('../../assets/home/join.png'),
     shareImage: require('../../assets/home/share.png'),

@@ -29,6 +29,8 @@ function enhanceFetch(pathname, method, params) {
             };
         }
 
+        console.info('request.url', url);
+
         fetch(url, {
             method,
             headers: {
@@ -41,11 +43,11 @@ function enhanceFetch(pathname, method, params) {
                 return response.json();
             })
             .then(resjson => {
-                console.info('sourcedata', resjson);
+                console.info('request.sourcedata', resjson);
                 resolve(_.pickBy(resjson.data, Boolean));
             })
             .catch(err => {
-                console.error('errmsg', err);
+                console.error('request.errmsg', err);
                 resolve({});
             });
     });

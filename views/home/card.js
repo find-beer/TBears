@@ -10,9 +10,9 @@ import {scaleSize, scaleFont} from '@utils/scaleUtil';
 export default props => {
     return (
         <View style={styles.container}>
-            {props.data.map(item => {
+            {props.data.map((item, index) => {
                 return (
-                    <View style={styles.itemContainer}>
+                    <View key={index} style={styles.itemContainer}>
                         <View style={styles.itemContent}>
                             <View style={styles.tag} />
                             <View style={styles.info}>
