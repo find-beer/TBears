@@ -8,6 +8,7 @@ import {
     Image,
     AsyncStorage,
 } from 'react-native';
+import {WebView} from 'react-native-webview';
 import DatePicker from '@views/common/datePicker';
 import Picker from '@views/common/picker';
 import Header from '@views/common/header';
@@ -273,15 +274,17 @@ export default class Publish extends React.Component {
                         </InfoLine>
                     </View>
                 ))}
-
+                {/*
                 <TextInput
                     multiline={true}
                     style={styles.desc}
                     numberOfLines={10}
                     placeholder="请书写文案..."
                     textAlignVertical="top"
-                />
-
+                /> */}
+                <View style={styles.desc}>
+                    <WebView source={{html: '<h1>Hello world</h1>'}} />
+                </View>
                 <View style={styles.footer}>
                     <Button
                         style={{flex: 1}}
@@ -338,6 +341,7 @@ const styles = StyleSheet.create({
         marginRight: scaleSize(30),
     },
     desc: {
+        height: scaleSize(300),
         marginTop: scaleSize(54),
         marginHorizontal: scaleSize(54),
         fontSize: scaleFont(42),

@@ -40,5 +40,7 @@ target 'TBears' do
   # pod 'react-native-amap-geolocation', :path => '../node_modules/react-native-amap-geolocation'
 
 
+  pod 'react-native-webview', :path => '../node_modules/react-native-webview'
+
 end
 
