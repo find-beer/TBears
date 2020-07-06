@@ -218,6 +218,19 @@ export default class Publish extends React.Component {
     componentDidUpdate() {
         this._retrieveData();
     }
+    onMessage(e) {
+        console.log('触发没有', e.nativeEvent.data);
+        if (e.nativeEvent.data !== '1000') {
+            console.log(e.nativeEvent.data);
+            this.refs.webview.postMessage('我来自RN');
+        } else {
+            // this.refs.webview.postMessage('我来自RN');
+            console.log(999999999);
+        }
+    }
+    onLoadStart() {
+        this.refs.webview.postMessage('我来自RNm');
+    }
     render() {
         const {
             submitInfo,
@@ -283,7 +296,13 @@ export default class Publish extends React.Component {
                     textAlignVertical="top"
                 /> */}
                 <View style={styles.desc}>
-                    <WebView source={{html: '<h1>Hello world</h1>'}} />
+                    <WebView
+                        ref="webview"
+                        source={{uri: 'http://localhost:3000/'}}
+                        onMessage={this.onMessage.bind(this)}
+                        onLoadStart={this.onLoadStart.bind(this)}
+                        injectedJavaScript="document.addEventListerer('message',function(e){eval(e.data,e.data = '你好')})"
+                    />
                 </View>
                 <View style={styles.footer}>
                     <Button
