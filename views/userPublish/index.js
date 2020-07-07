@@ -148,6 +148,7 @@ export default class UserPublish extends React.Component {
         enhanceFetch('/feed/publish', 'post', this.state.submitInfo).then(
             res => {
                 console.log(res);
+                this.props.navigation.replace('MainTab');
             },
         );
         // console.log('submit', this.state.submitInfo);

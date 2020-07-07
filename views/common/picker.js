@@ -1,11 +1,9 @@
-
-import React from 'react'
-import { Modal, Picker, View, Text, TouchableOpacity } from 'react-native'
-import { StyleSheet } from 'react-native'
-import { scaleSize, scaleFont } from '@utils/scaleUtil'
+import React from 'react';
+import {Modal, Picker, View, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet} from 'react-native';
+import {scaleSize, scaleFont} from '@utils/scaleUtil';
 
 export default props => {
-
     let [value, setValue] = React.useState('');
     let [index, setIndex] = React.useState(0);
 
@@ -16,31 +14,30 @@ export default props => {
     return (
         <Modal transparent={true} animationType="slide" visible={props.visible}>
             <TouchableOpacity onPress={props.onCancel} style={styles.mask} />
-    
+
             <View style={styles.picker}>
                 <View style={styles.pickerHead}>
-                    <TouchableOpacity onPress={props.onCancel} activeOpacity={0.8}>
+                    <TouchableOpacity
+                        onPress={props.onCancel}
+                        activeOpacity={0.8}>
                         <Text style={styles.cancelBtn}>取消</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={props.onConfirm.bind(this, value, index)} activeOpacity={0.8}>
+                    <TouchableOpacity
+                        onPress={props.onConfirm.bind(this, value, index)}
+                        activeOpacity={0.8}>
                         <Text style={styles.confirmBtn}>确定</Text>
                     </TouchableOpacity>
                 </View>
 
-                <Picker
-                    selectedValue={value}
-                    onValueChange={onPickerChange}
-                >
-                    {props.data.map((item) => (
+                <Picker selectedValue={value} onValueChange={onPickerChange}>
+                    {props.data.map(item => (
                         <Picker.Item label={item.label} value={item.value} />
                     ))}
                 </Picker>
-    
-                
             </View>
         </Modal>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     picker: {
@@ -51,7 +48,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 0,
         left: 0,
-        right: 0
+        right: 0,
     },
     mask: {
         width: '100%',
@@ -62,7 +59,7 @@ const styles = StyleSheet.create({
         top: 0,
         bottom: 0,
         left: 0,
-        right: 0
+        right: 0,
     },
     pickerHead: {
         height: scaleSize(200),
@@ -72,19 +69,19 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingHorizontal: scaleSize(60)
+        paddingHorizontal: scaleSize(60),
     },
     pickerContent: {
         flex: 1,
         position: 'relative',
-        top: scaleSize(-60)
+        top: scaleSize(-60),
     },
     cancelBtn: {
-        fontSize: scaleFont(48)
+        fontSize: scaleFont(48),
     },
 
     confirmBtn: {
         fontSize: scaleFont(48),
-        color: '#29ad48'
-    }
-})
+        color: '#29ad48',
+    },
+});

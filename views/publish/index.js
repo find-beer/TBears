@@ -87,12 +87,13 @@ export default class Publish extends React.Component {
                 activityTime: '',
                 // numberCount: '',
                 enrollEndTime: '',
-                location: '',
+                location: '116.365645',
                 activityAddress: '',
-                // ticketVoList: [],
+                ticketVoList: [],
                 activityType: '',
                 state: 2,
                 needInfo: 0, //0否 1是
+                content: '',
             },
             ticketTypesNum: 0,
         };
@@ -139,6 +140,7 @@ export default class Publish extends React.Component {
     };
 
     onPickerSelect = (value, index) => {
+        console.log(value, index);
         let {submitInfo} = this.state;
         submitInfo.activityType = value;
         this.setState({
@@ -147,12 +149,15 @@ export default class Publish extends React.Component {
         this.togglePicker();
     };
     //存草稿
-    handleSaveDraftEvent = () => {};
+    handleSaveDraftEvent = () => {
+        this.handleDataFetch(1);
+    };
 
     //查询存草稿
     handleQueryDraftEvent = () => {
         enhanceFetch('/activity/querydraft', 'get').then(res => {
             console.log(res, '回显示处理');
+            res.data && this.setState({submitInfo: res.data});
         });
     };
 
@@ -161,15 +166,19 @@ export default class Publish extends React.Component {
             const typeMap = res.map(item => {
                 return {
                     label: item._2,
-                    value: item._2,
+                    value: item._1,
                     type: item._3,
                 };
             });
+            console.log(typeMap, 9);
             this.setState({typeMap});
         });
     };
 
     handlePublishEvent = () => {
+        this.handleDataFetch(2);
+    };
+    handleDataFetch = state => {
         const {
             activityTitle,
             activityTime,
@@ -185,11 +194,9 @@ export default class Publish extends React.Component {
         } else if (!activityAddress) {
             Alert.alert('请填写活动位置');
         } else {
-            enhanceFetch(
-                '/activity/publish',
-                'post',
-                this.state.submitInfo,
-            ).then(res => {
+            let params = this.state.submitInfo;
+            params.state = state;
+            enhanceFetch('/activity/publish', 'post', params).then(res => {
                 console.log(res);
             });
         }
@@ -204,6 +211,8 @@ export default class Publish extends React.Component {
             if (value !== null) {
                 // We have data!!
                 let ticketTypeLists = JSON.parse(value);
+                const {submitInfo} = this.state;
+                submitInfo.ticketVoList = ticketTypeLists;
                 this.setState({ticketTypesNum: ticketTypeLists.length});
             }
         } catch (error) {
@@ -219,17 +228,19 @@ export default class Publish extends React.Component {
         this._retrieveData();
     }
     onMessage(e) {
-        console.log('触发没有', e.nativeEvent.data);
-        if (e.nativeEvent.data !== '1000') {
+        if (e.nativeEvent.data !== '<p>请书写文案...</p>') {
             console.log(e.nativeEvent.data);
-            this.refs.webview.postMessage('我来自RN');
+            const {submitInfo} = this.state;
+            submitInfo.content = e.nativeEvent.data;
+            this.setState({
+                submitInfo,
+            });
         } else {
-            // this.refs.webview.postMessage('我来自RN');
-            console.log(999999999);
+            this.refs.webview.postMessage('我来自RN');
         }
     }
     onLoadStart() {
-        this.refs.webview.postMessage('我来自RNm');
+        this.refs.webview.postMessage('我来自RNm6');
     }
     render() {
         const {
@@ -253,7 +264,9 @@ export default class Publish extends React.Component {
                                     )}
                                     placeholder={item.placeholder}
                                 />
-                            ) : item.infoType === 2 || item.infoType === 4 ? (
+                            ) : item.infoType === 2 ||
+                              (item.infoType === 4 &&
+                                  submitInfo.activityTime) ? (
                                 <TouchableOpacity
                                     onPress={this.choosePicker.bind(
                                         this,
@@ -269,6 +282,8 @@ export default class Publish extends React.Component {
                                         </Text>
                                     )}
                                 </TouchableOpacity>
+                            ) : item.infoType === 4 ? (
+                                <Text style={styles.placeholder}>周边游</Text>
                             ) : (
                                 <TouchableOpacity
                                     onPress={this.goToAddTicketPage}
@@ -297,6 +312,7 @@ export default class Publish extends React.Component {
                 /> */}
                 <View style={styles.desc}>
                     <WebView
+                        style={styles.desc}
                         ref="webview"
                         source={{uri: 'http://localhost:3000/'}}
                         onMessage={this.onMessage.bind(this)}
@@ -329,7 +345,7 @@ export default class Publish extends React.Component {
                 {typeMap.length > 0 && (
                     <Picker
                         visible={showPicker}
-                        selectedValue={submitInfo.activityType}
+                        // selectedValue={submitInfo.activityType}
                         onConfirm={this.onPickerSelect}
                         onCancel={this.togglePicker}
                         data={typeMap}
@@ -360,9 +376,9 @@ const styles = StyleSheet.create({
         marginRight: scaleSize(30),
     },
     desc: {
-        height: scaleSize(300),
-        marginTop: scaleSize(54),
-        marginHorizontal: scaleSize(54),
+        height: scaleSize(800),
+        // marginTop: scaleSize(54),
+        // marginHorizontal: scaleSize(54),
         fontSize: scaleFont(42),
     },
 
