@@ -31,7 +31,11 @@ export default props => {
 
                 <Picker selectedValue={value} onValueChange={onPickerChange}>
                     {props.data.map(item => (
-                        <Picker.Item label={item.label} value={item.value} />
+                        <Picker.Item
+                            key={item.value}
+                            label={item.label}
+                            value={item.value}
+                        />
                     ))}
                 </Picker>
             </View>

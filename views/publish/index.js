@@ -37,7 +37,7 @@ const activityInfos = [
         title: '活动人数',
         infoType: 1,
         placeholder: '请填写',
-        filedName: 'numberCount',
+        // filedName: 'numberCount',
     },
     {
         title: '报名截止时间',
@@ -61,7 +61,7 @@ const activityInfos = [
         title: '活动类型',
         infoType: 4, // input
         placeholder: '请选择',
-        filedName: 'activityType',
+        filedName: 'activityTypeName',
     },
 ];
 
@@ -85,12 +85,13 @@ export default class Publish extends React.Component {
             submitInfo: {
                 activityTitle: '',
                 activityTime: '',
-                // numberCount: '',
+                numberCount: '',
                 enrollEndTime: '',
                 location: '116.365645',
                 activityAddress: '',
                 ticketVoList: [],
                 activityType: '',
+                activityTypeName: '',
                 state: 2,
                 needInfo: 0, //0否 1是
                 content: '',
@@ -140,9 +141,10 @@ export default class Publish extends React.Component {
     };
 
     onPickerSelect = (value, index) => {
-        console.log(value, index);
-        let {submitInfo} = this.state;
+        console.log(value, 888);
+        let {submitInfo, typeMap} = this.state;
         submitInfo.activityType = value;
+        submitInfo.activityTypeName = typeMap[index].label;
         this.setState({
             submitInfo,
         });
@@ -195,6 +197,13 @@ export default class Publish extends React.Component {
             Alert.alert('请填写活动位置');
         } else {
             let params = this.state.submitInfo;
+            delete params.activityTypeName;
+            if (this.state.submitInfo.numberCount) {
+                params.numberCount = Number(this.state.submitInfo.numberCount);
+            }
+            if (!this.state.submitInfo.activityTime) {
+                params.activityTime = 1;
+            }
             params.state = state;
             enhanceFetch('/activity/publish', 'post', params).then(res => {
                 console.log(res);
@@ -228,7 +237,7 @@ export default class Publish extends React.Component {
         this._retrieveData();
     }
     onMessage(e) {
-        if (e.nativeEvent.data !== '<p>请书写文案...</p>') {
+        if (!e.nativeEvent.data) {
             console.log(e.nativeEvent.data);
             const {submitInfo} = this.state;
             submitInfo.content = e.nativeEvent.data;
@@ -236,11 +245,11 @@ export default class Publish extends React.Component {
                 submitInfo,
             });
         } else {
-            this.refs.webview.postMessage('我来自RN');
+            // this.refs.webview.postMessage('我来自RN');
         }
     }
     onLoadStart() {
-        this.refs.webview.postMessage('我来自RNm6');
+        this.refs.webview.postMessage('初始值，我来自RN');
     }
     render() {
         const {
