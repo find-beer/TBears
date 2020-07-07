@@ -141,7 +141,6 @@ export default class Publish extends React.Component {
     };
 
     onPickerSelect = (value, index) => {
-        console.log(value, 888);
         let {submitInfo, typeMap} = this.state;
         submitInfo.activityType = value;
         submitInfo.activityTypeName = typeMap[index].label;
@@ -158,7 +157,6 @@ export default class Publish extends React.Component {
     //查询存草稿
     handleQueryDraftEvent = () => {
         enhanceFetch('/activity/querydraft', 'get').then(res => {
-            console.log(res, '回显示处理');
             res.data && this.setState({submitInfo: res.data});
         });
     };
@@ -172,7 +170,6 @@ export default class Publish extends React.Component {
                     type: item._3,
                 };
             });
-            console.log(typeMap, 9);
             this.setState({typeMap});
         });
     };
@@ -181,6 +178,9 @@ export default class Publish extends React.Component {
         this.handleDataFetch(2);
     };
     handleDataFetch = state => {
+        var nowDate = new Date();
+        var endDate = new Date(new Date().getTime() + 12 * 60 * 60 * 1000);
+        let params = this.state.submitInfo;
         const {
             activityTitle,
             activityTime,
@@ -190,13 +190,14 @@ export default class Publish extends React.Component {
         if (!activityTitle) {
             Alert.alert('请填写活动标题');
         } else if (!activityTime) {
-            Alert.alert('请填写活动时间');
+            params.activityTime = this.getNowTimeStr(nowDate);
+            // Alert.alert('请填写活动时间');
         } else if (!enrollEndTime) {
-            Alert.alert('请选择活动结束时间');
+            params.enrollEndTime = this.getNowTimeStr(endDate);
+            // Alert.alert('请选择活动结束时间');
         } else if (!activityAddress) {
             Alert.alert('请填写活动位置');
         } else {
-            let params = this.state.submitInfo;
             delete params.activityTypeName;
             if (this.state.submitInfo.numberCount) {
                 params.numberCount = Number(this.state.submitInfo.numberCount);
@@ -238,7 +239,6 @@ export default class Publish extends React.Component {
     }
     onMessage(e) {
         if (!e.nativeEvent.data) {
-            console.log(e.nativeEvent.data);
             const {submitInfo} = this.state;
             submitInfo.content = e.nativeEvent.data;
             this.setState({
@@ -248,6 +248,29 @@ export default class Publish extends React.Component {
             // this.refs.webview.postMessage('我来自RN');
         }
     }
+
+    getFormatDate = date => {
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = '0' + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = '0' + strDate;
+        }
+        let currentDate =
+            date.getFullYear() +
+            '-' +
+            month +
+            '-' +
+            strDate +
+            ' ' +
+            date.getHours() +
+            ':' +
+            date.getMinutes();
+        return currentDate;
+    };
+
     onLoadStart() {
         this.refs.webview.postMessage('初始值，我来自RN');
     }

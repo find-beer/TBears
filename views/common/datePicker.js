@@ -1,12 +1,10 @@
-
-import React from 'react'
-import { Text, TouchableOpacity, Modal, View } from 'react-native'
+import React from 'react';
+import {Text, TouchableOpacity, Modal, View} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { StyleSheet } from 'react-native'
-import { scaleSize, scaleFont } from '@utils/scaleUtil'
+import {StyleSheet} from 'react-native';
+import {scaleSize, scaleFont} from '@utils/scaleUtil';
 
 export default props => {
-
     let [date, setDate] = React.useState(new Date());
     function onChange(event, value) {
         // console.log(value);
@@ -19,17 +17,21 @@ export default props => {
     return (
         <Modal transparent={true} animationType="slide" visible={props.visible}>
             <TouchableOpacity onPress={props.onCancel} style={styles.mask} />
-    
+
             <View style={styles.datePicker}>
                 <View style={styles.pickerHead}>
-                    <TouchableOpacity onPress={props.onCancel} activeOpacity={0.8}>
+                    <TouchableOpacity
+                        onPress={props.onCancel}
+                        activeOpacity={0.8}>
                         <Text style={styles.cancelBtn}>取消</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={onConfirm.bind(this, date)} activeOpacity={0.8}>
+                    <TouchableOpacity
+                        onPress={onConfirm.bind(this, date)}
+                        activeOpacity={0.8}>
                         <Text style={styles.confirmBtn}>确定</Text>
                     </TouchableOpacity>
                 </View>
-    
+
                 <DateTimePicker
                     style={styles.pickerContent}
                     value={date}
@@ -42,8 +44,8 @@ export default props => {
                 />
             </View>
         </Modal>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     datePicker: {
@@ -54,7 +56,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 0,
         left: 0,
-        right: 0
+        right: 0,
     },
     mask: {
         width: '100%',
@@ -65,7 +67,7 @@ const styles = StyleSheet.create({
         top: 0,
         bottom: 0,
         left: 0,
-        right: 0
+        right: 0,
     },
     pickerHead: {
         height: scaleSize(200),
@@ -75,19 +77,19 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingHorizontal: scaleSize(60)
+        paddingHorizontal: scaleSize(60),
     },
     pickerContent: {
         flex: 1,
         position: 'relative',
-        top: scaleSize(-60)
+        top: scaleSize(-60),
     },
     cancelBtn: {
-        fontSize: scaleFont(48)
+        fontSize: scaleFont(48),
     },
 
     confirmBtn: {
         fontSize: scaleFont(48),
-        color: '#29ad48'
-    }
-})
+        color: '#29ad48',
+    },
+});
