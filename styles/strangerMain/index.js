@@ -4,8 +4,7 @@ import {scaleSize, scaleFont} from '@utils/scaleUtil';
 export default StyleSheet.create({
     persionalTab: {},
     bgaWrapper: {
-        width: '100%',
-        height: scaleSize(1157),
+        height: scaleSize(1000),
         padding: scaleSize(54),
         backgroundColor: 'rgba(0,0,0,.5)',
     },
@@ -23,42 +22,34 @@ export default StyleSheet.create({
         height: scaleSize(48),
         marginRight: scaleSize(12),
     },
-    configFont: {
-        fontSize: scaleFont(39),
-        color: '#fff',
-    },
     operationBox: {
-        marginTop: scaleSize(54),
-        height: scaleSize(76),
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingLeft: scaleSize(40),
-        paddingRight: scaleSize(40),
-    },
-    operationBtn: {
-        width: scaleSize(243),
-        height: scaleSize(76),
+        height: scaleSize(260),
         backgroundColor: '#fff',
-        fontSize: scaleFont(36),
-        color: '#ccc',
-        borderRadius: scaleSize(38),
         display: 'flex',
         flexDirection: 'row',
+        alignItems: 'center',
         justifyContent: 'center',
+        lineHeight: 1,
     },
-    btnIcon: {
-        width: scaleSize(32),
-        height: scaleSize(32),
-        marginTop: scaleSize(22),
+    chatBox: {
+        height: scaleSize(150),
+        width: scaleSize(340),
+        borderRadius: scaleSize(30),
+        display: 'flex',
+        flexDirection: 'row',
+        backgroundColor: '#f2f2f2',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
-    btnText: {
-        fontSize: scaleFont(36),
-        color: '#333',
-        lineHeight: scaleSize(76),
+    chatIcon: {
+        width: scaleSize(60),
+        height: scaleSize(60),
+        marginRight: scaleSize(20),
     },
-    leftBtn: {
-        marginRight: scaleSize(85),
+    chatText: {
+        fontSize: scaleFont(44),
+        color: '#000',
+        lineHeight: scaleSize(150),
     },
     lineSpace: {
         height: scaleSize(24),

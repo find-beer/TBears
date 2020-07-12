@@ -1,54 +1,75 @@
-import MainTabScreen from '@views/mainTab/index'
-import LoginScreen from '@views/login/index'
-import InteractiveNotification from '@views/notice/interactiveNotification'
-import ActivityList from '@views/notice/activityList'
-import FriendsList from '@views/notice/friendsList'
-import AddFriends from '@views/notice/addFriends'
-import QrCode from '@views/qrCode'
-import Complaint from '@views/complaint'
-import Store from '@views/store'
-import Config from '@views/config'
-import StoreList from '@views/storeList'
-import EditInfo from '@views/editInfo'
+import MainTabScreen from '@views/mainTab/index';
+import LoginScreen from '@views/login/index';
+import InteractiveNotification from '@views/notice/interactiveNotification';
+import ActivityList from '@views/notice/activityList';
+import FriendsList from '@views/notice/friendsList';
+import AddFriends from '@views/notice/addFriends';
+import QrCode from '@views/qrCode';
+import Complaint from '@views/complaint';
+import Store from '@views/store';
+import Config from '@views/config';
+import StoreList from '@views/storeList';
+import EditInfo from '@views/editInfo';
+import Mine from '@views/mine';
+import StrangerMain from '@views/strangerMain';
+import FriendMain from '@views/friendMain';
+import AccessConfig from '@views/accessConfig';
+import AccessConfigStrange from '@views/accessConfigStrange';
+import RegisterScreen from '@views/register';
 
 export default {
     MainTab: {
-        screen: MainTabScreen
+        screen: MainTabScreen,
     },
     Login: {
-        screen: LoginScreen
+        screen: LoginScreen,
     },
     InteractiveNotification: {
-        screen: InteractiveNotification
+        screen: InteractiveNotification,
     },
     ActivityList: {
-        screen: ActivityList
+        screen: ActivityList,
     },
     FriendsList: {
-        screen: FriendsList
+        screen: FriendsList,
     },
     AddFriends: {
-        screen: AddFriends
+        screen: AddFriends,
     },
-    QrCode:{
-        screen:QrCode
+    QrCode: {
+        screen: QrCode,
     },
-    Complaint:{
-        screen:Complaint
+    Complaint: {
+        screen: Complaint,
     },
-    Store:{
-        screen:Store
+    Store: {
+        screen: Store,
     },
-    StoreList:{
-        screen:StoreList
+    StoreList: {
+        screen: StoreList,
     },
-    Config:{
-        screen:Config
+    Config: {
+        screen: Config,
     },
-    EditInfo:{
-        screen:EditInfo
+    EditInfo: {
+        screen: EditInfo,
     },
-    Mine:{
-        screen:MainTabScreen
-    }
-}
+    Mine: {
+        screen: LoginScreen,
+    },
+    StrangerMain: {
+        screen: StrangerMain,
+    },
+    FriendMain: {
+        screen: FriendMain,
+    },
+    AccessConfig: {
+        screen: AccessConfig,
+    },
+    AccessConfigStrange: {
+        screen: AccessConfigStrange,
+    },
+    RegisterScreen: {
+        screen: RegisterScreen,
+    },
+};
