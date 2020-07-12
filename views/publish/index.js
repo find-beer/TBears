@@ -37,7 +37,7 @@ const activityInfos = [
         title: '活动人数',
         infoType: 1,
         placeholder: '请填写',
-        // filedName: 'numberCount',
+        filedName: 'memberCount',
     },
     {
         title: '报名截止时间',
@@ -85,9 +85,9 @@ export default class Publish extends React.Component {
             submitInfo: {
                 activityTitle: '',
                 activityTime: '',
-                numberCount: '',
+                memberCount: '',
                 enrollEndTime: '',
-                location: '116.365645',
+                location: '123.236944,41.267244',
                 activityAddress: '',
                 ticketVoList: [],
                 activityType: '',
@@ -122,7 +122,7 @@ export default class Publish extends React.Component {
     };
 
     onCalendarSelect = date => {
-        let dateString = dateFormat(date, 'yyyy-mm-dd HH:MM:ss');
+        let dateString = dateFormat(date, 'yyyy-mm-dd HH:MM');
         let {submitInfo} = this.state;
         submitInfo[this.state.currentFiled] = dateString;
         this.setState({
@@ -141,8 +141,9 @@ export default class Publish extends React.Component {
     };
 
     onPickerSelect = (value, index) => {
+        console.log(value, 999);
         let {submitInfo, typeMap} = this.state;
-        submitInfo.activityType = value;
+        submitInfo.activityType = typeMap[index].type;
         submitInfo.activityTypeName = typeMap[index].label;
         this.setState({
             submitInfo,
@@ -186,26 +187,48 @@ export default class Publish extends React.Component {
             activityTime,
             enrollEndTime,
             activityAddress,
+            memberCount,
+            activityType,
         } = this.state.submitInfo;
         if (!activityTitle) {
             Alert.alert('请填写活动标题');
-        } else if (!activityTime) {
-            params.activityTime = this.getNowTimeStr(nowDate);
-            // Alert.alert('请填写活动时间');
-        } else if (!enrollEndTime) {
-            params.enrollEndTime = this.getNowTimeStr(endDate);
-            // Alert.alert('请选择活动结束时间');
-        } else if (!activityAddress) {
+        } else if (!memberCount) {
+            Alert.alert('请填写活动人数');
+        }
+        // else if (!activityTime) {
+        //     params.activityTime = this.getFormatDate(nowDate);
+        //     // Alert.alert('请填写活动时间');
+        // } else if (!enrollEndTime) {
+        //     params.enrollEndTime = this.getFormatDate(endDate);
+        //     // Alert.alert('请选择活动结束时间');
+        // }
+        else if (!activityAddress) {
             Alert.alert('请填写活动位置');
         } else {
             delete params.activityTypeName;
-            if (this.state.submitInfo.numberCount) {
-                params.numberCount = Number(this.state.submitInfo.numberCount);
-            }
+            // delete params.undefined;
+            // if (this.state.submitInfo.memberCount) {
+            //     params.memberCount = Number(this.state.submitInfo.memberCount);
+            // }
+            // params.content = '活动内容';
+            // params.memberCount = 3;
+            params.userType = 0;
+            params.activityValid = 0; //长期活动和短期活动
             if (!this.state.submitInfo.activityTime) {
-                params.activityTime = 1;
+                params.activityTime = 0;
+            }
+            if (!activityTime) {
+                params.activityValid = 1;
+                params.activityTime = this.getFormatDate(nowDate);
+            }
+            if (!enrollEndTime) {
+                params.enrollEndTime = this.getFormatDate(endDate);
+            }
+            if (!activityType) {
+                params.activityType = 1; //活动类型,默认为长期活动1
             }
             params.state = state;
+            console.log(params, '请求的参数');
             enhanceFetch('/activity/publish', 'post', params).then(res => {
                 console.log(res);
             });
@@ -238,7 +261,9 @@ export default class Publish extends React.Component {
         this._retrieveData();
     }
     onMessage(e) {
-        if (!e.nativeEvent.data) {
+        console.log(e.nativeEvent.data, 99999988);
+
+        if (e.nativeEvent.data) {
             const {submitInfo} = this.state;
             submitInfo.content = e.nativeEvent.data;
             this.setState({
@@ -252,11 +277,19 @@ export default class Publish extends React.Component {
     getFormatDate = date => {
         var month = date.getMonth() + 1;
         var strDate = date.getDate();
+        var H = date.getHours();
+        var M = date.getMinutes();
         if (month >= 1 && month <= 9) {
             month = '0' + month;
         }
         if (strDate >= 0 && strDate <= 9) {
             strDate = '0' + strDate;
+        }
+        if (H >= 0 && H <= 9) {
+            H = '0' + H;
+        }
+        if (M >= 0 && M <= 9) {
+            M = '0' + M;
         }
         let currentDate =
             date.getFullYear() +
@@ -265,14 +298,14 @@ export default class Publish extends React.Component {
             '-' +
             strDate +
             ' ' +
-            date.getHours() +
+            H +
             ':' +
-            date.getMinutes();
+            M;
         return currentDate;
     };
 
     onLoadStart() {
-        this.refs.webview.postMessage('初始值，我来自RN');
+        this.refs.webview.postMessage('<p>初始值，我来自RNb</p>');
     }
     render() {
         const {
