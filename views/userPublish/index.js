@@ -38,22 +38,6 @@ async function useGeolocation() {
 
 // useGeolocation();
 
-// const geolocationInit = async () => {
-//     await Geolocation.init({
-//         ios: 'dda2ce0ca251baf59404a59c28b4edd5',
-//         // android: 'key',
-//     });
-
-//     Geolocation.setOptions({
-//         interval: 3000,
-//         distanceFilter: 20,
-//     });
-
-//     Geolocation.addLocationListener(location => {
-//         console.log(location);
-//     });
-// };
-
 const imageUrl = {
     addPic: require('../../assets/publish/add-image.png'),
     location: require('../../assets/publish/location.png'),
@@ -164,25 +148,18 @@ export default class UserPublish extends React.Component {
 
     getLocation = () => {
         // console.log('aa', addLocationListener);
-        // addLocationListener(location =>
-        //     console.log(location, 999987654456789876545678),
-        // );
+        // addLocationListener(location => console.log(location));
         // start();
         // stop();
         // init({
-        //     ios: 'dda2ce0ca251baf59404a59c28b4edd5',
-        //     //   android: "043b24fe18785f33c491705ffe5b6935"
-        // }).then(res => {
-        //     Geolocation.getCurrentPosition(location => {
-        //         console.log(location);
-        //     });
-        //     console.log('----init----', res);
-        //     // console.log(Geolocation.getCurrentPosition);
-        //     // Geolocation.getCurrentPosition(({coords}) => {
-        //     //     console.log('========', coords, 999999999);
-        //     // });
-        // });
-        // console.log(navigator, navigator.geolocation);
+        //     ios: "dda2ce0ca251baf59404a59c28b4edd5",
+        // //   android: "043b24fe18785f33c491705ffe5b6935"
+        // }).then((res) => {
+        //     console.log('----init----', res)
+        //     Geolocation.getCurrentPosition(({ coords }) => {
+        //         console.log(coords);
+        //       });
+        // })
         // Geolocation.getCurrentPosition((res) => {
         //     console.log(res)
         // });

@@ -137,11 +137,9 @@ export default class Publish extends React.Component {
         this.setState({
             submitInfo,
         });
-        console.log(submitInfo);
     };
 
     onPickerSelect = (value, index) => {
-        console.log(value, 999);
         let {submitInfo, typeMap} = this.state;
         submitInfo.activityType = typeMap[index].type;
         submitInfo.activityTypeName = typeMap[index].label;
@@ -194,24 +192,10 @@ export default class Publish extends React.Component {
             Alert.alert('请填写活动标题');
         } else if (!memberCount) {
             Alert.alert('请填写活动人数');
-        }
-        // else if (!activityTime) {
-        //     params.activityTime = this.getFormatDate(nowDate);
-        //     // Alert.alert('请填写活动时间');
-        // } else if (!enrollEndTime) {
-        //     params.enrollEndTime = this.getFormatDate(endDate);
-        //     // Alert.alert('请选择活动结束时间');
-        // }
-        else if (!activityAddress) {
+        } else if (!activityAddress) {
             Alert.alert('请填写活动位置');
         } else {
             delete params.activityTypeName;
-            // delete params.undefined;
-            // if (this.state.submitInfo.memberCount) {
-            //     params.memberCount = Number(this.state.submitInfo.memberCount);
-            // }
-            // params.content = '活动内容';
-            // params.memberCount = 3;
             params.userType = 0;
             params.activityValid = 0; //长期活动和短期活动
             if (!this.state.submitInfo.activityTime) {
@@ -261,8 +245,7 @@ export default class Publish extends React.Component {
         this._retrieveData();
     }
     onMessage(e) {
-        console.log(e.nativeEvent.data, 99999988);
-
+        console.log(e.nativeEvent.data);
         if (e.nativeEvent.data) {
             const {submitInfo} = this.state;
             submitInfo.content = e.nativeEvent.data;

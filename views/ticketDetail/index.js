@@ -112,7 +112,6 @@ export default class ticketDetail extends React.Component {
 
                         data.map((item, index) => {
                             if ((item.id = submitInfo.id)) {
-                                console.log(index);
                                 ticketTypeLists[index] = submitInfo;
                             }
                         });
@@ -128,13 +127,11 @@ export default class ticketDetail extends React.Component {
                     let data = ticketTypeLists;
                     data.map((item, index) => {
                         if ((item.id = submitInfo.id)) {
-                            console.log(index);
                             ticketTypeLists[index] = submitInfo;
                         }
                     });
                 }
                 this._storeData(ticketTypeLists);
-                // Alert.alert('保存');
             }
         }
     };
@@ -171,14 +168,9 @@ export default class ticketDetail extends React.Component {
     handleGetillustrationEvent = value => {
         const {submitInfo} = this.state;
         submitInfo.illustration = value;
-        this.setState(
-            {
-                submitInfo,
-            },
-            () => {
-                console.log(this.state.submitInfo);
-            },
-        );
+        this.setState({
+            submitInfo,
+        });
     };
     componentDidMount() {
         const {submitInfo, activityInfos, groupInfos} = this.state;

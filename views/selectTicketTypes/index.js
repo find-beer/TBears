@@ -139,7 +139,6 @@ export default class selectTicketTypes extends React.Component {
         console.log('submit', this.state.submitInfo);
     };
     handleSelectTicketEvent = value => {
-        // console.log(888, value, 999);
         const {tickeTypesData} = this.state;
         tickeTypesData.map((item, index) => {
             if (index === value) {
