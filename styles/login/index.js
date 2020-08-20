@@ -39,7 +39,15 @@ export default StyleSheet.create({
         fontSize: scaleFont(42),
         margin: 0,
         padding: 0,
-        textAlign: 'left',
         color: '#999999',
+    },
+    loginBtnBox: {
+        width: '100%',
+        height: scaleSize(120),
+        borderRadius: scaleSize(40),
+        backgroundColor: '#8A8DF9',
+    },
+    loginBtnText: {
+        color: '#fff',
     },
 });

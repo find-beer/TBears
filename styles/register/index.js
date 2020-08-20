@@ -30,6 +30,17 @@ export default StyleSheet.create({
         color: '#999999',
         width: scaleSize(200),
     },
+    birthdayLabel: {
+        fontSize: scaleFont(42),
+        color: '#999999',
+    },
+    birthdayBox: {
+        marginBottom: scaleSize(87),
+        paddingBottom: scaleSize(36),
+        paddingLeft: 0,
+        paddingRight: 0,
+        color: '#999999',
+    },
     arrowIcon: {
         width: scaleSize(60),
         height: scaleSize(60),
@@ -43,11 +54,16 @@ export default StyleSheet.create({
         borderBottomWidth: scaleSize(1),
         borderBottomColor: '#f2f2f2',
         marginBottom: scaleSize(87),
+        paddingBottom: scaleSize(36),
+    },
+    dateBox: {
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'space-between',
     },
     formItem: {
         flex: 1,
         paddingTop: scaleSize(36),
-        paddingBottom: scaleSize(36),
         fontSize: scaleFont(42),
         margin: 0,
         padding: 0,
@@ -60,5 +76,14 @@ export default StyleSheet.create({
         borderWidth: scaleSize(3),
         padding: scaleSize(10),
         borderColor: '#f2f2f2',
+    },
+    registerBtnBox: {
+        width: '100%',
+        height: scaleSize(120),
+        borderRadius: scaleSize(40),
+        backgroundColor: '#8A8DF9',
+    },
+    registerBtnText: {
+        color: '#fff',
     },
 });

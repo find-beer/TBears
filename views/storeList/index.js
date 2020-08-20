@@ -61,10 +61,17 @@ export default class StoreList extends Component {
                                     <Image style={styles.activityImage} />
                                     <Image style={styles.activityImage} />
                                 </View>
-                                <View style={styles.disbindBtn}>
-                                    <Text style={styles.disbindBtnText}>
-                                        解散活动
-                                    </Text>
+                                <View style={styles.btnBox}>
+                                    <View style={styles.operateBtn}>
+                                        <Text style={styles.operateBtnText}>
+                                            解散活动
+                                        </Text>
+                                    </View>
+                                    <View style={styles.operateBtn}>
+                                        <Text style={styles.operateBtnText}>
+                                            报名详情
+                                        </Text>
+                                    </View>
                                 </View>
                             </View>
                         );

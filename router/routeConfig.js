@@ -13,9 +13,16 @@ import EditInfo from '@views/editInfo';
 import Mine from '@views/mine';
 import StrangerMain from '@views/strangerMain';
 import FriendMain from '@views/friendMain';
+import Hobby from '@views/hobby';
 import AccessConfig from '@views/accessConfig';
 import AccessConfigStrange from '@views/accessConfigStrange';
 import RegisterScreen from '@views/register';
+import PunchList from '@views/punchList'; // 榜单
+import Apply from '@views/apply'; // 报名页
+import RelationChain from '@views/relationChain'; // 关系链
+import Home from '@views/home'; // 关系网首页
+import DynamicDetail from '@views/dynamicDetail'; // 动态详情
+import ActivityDetail from '@views/activityDetail'; // 活动详情
 
 export default {
     MainTab: {
@@ -55,10 +62,13 @@ export default {
         screen: EditInfo,
     },
     Mine: {
-        screen: LoginScreen,
+        screen: Hobby,
     },
     StrangerMain: {
         screen: StrangerMain,
+    },
+    Hobby: {
+        screen: Hobby,
     },
     FriendMain: {
         screen: FriendMain,
@@ -71,5 +81,20 @@ export default {
     },
     RegisterScreen: {
         screen: RegisterScreen,
+    },
+    PunchList: {
+        screen: PunchList,
+    },
+    Apply: {
+        screen: Apply,
+    },
+    RelationChain: {
+        screen: RelationChain,
+    },
+    DynamicDetail: {
+        screen: DynamicDetail,
+    },
+    ActivityDetail: {
+        screen: ActivityDetail,
     },
 };

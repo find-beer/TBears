@@ -12,7 +12,8 @@
                 "@store": "./store",
                 "@actions": "./actions",
                 "@reducer": "./reducer",
-                "@constants": "./constants"
+                "@constants": "./constants",
+                "@network": "./network"
             }
         }],
         ["import", { "libraryName": "@ant-design/react-native" }] 

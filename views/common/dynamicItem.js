@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {View, Text, Image, ImageBackground} from 'react-native';
 import styles from '@styles/dynamicItem';
 const imageUrl = {
-    relationBtn: require('../../assets/mine/relationBtn.png'),
     dianzan: '',
     pinglun: '',
     share: '',
@@ -43,11 +42,6 @@ export default class DynamicItem extends Component {
                             </Text>
                         </View>
                     </View>
-                    <ImageBackground
-                        style={styles.relationBtn}
-                        source={imageUrl.relationBtn}>
-                        <Text style={styles.relationText}>关系链</Text>
-                    </ImageBackground>
                 </View>
                 <View style={styles.dynamicTextBox}>
                     <Text style={styles.dynamicText}>

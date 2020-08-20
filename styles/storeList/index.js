@@ -63,14 +63,19 @@ export default StyleSheet.create({
         backgroundColor: 'red',
         borderRadius: scaleSize(10),
     },
-    disbindBtn: {
-        width: scaleSize(970),
+    btnBox: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    operateBtn: {
+        width: scaleSize(470),
         height: scaleSize(90),
         borderRadius: scaleSize(45),
         backgroundColor: '#564F5F',
         marginTop: scaleSize(54),
     },
-    disbindBtnText: {
+    operateBtnText: {
         lineHeight: scaleSize(90),
         textAlign: 'center',
         fontSize: scaleFont(36),

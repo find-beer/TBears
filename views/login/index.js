@@ -1,6 +1,12 @@
 import React, {Component} from 'react';
-import {SafeAreaView, View, Text, TextInput, Button} from 'react-native';
+import {SafeAreaView, View, Text, TextInput} from 'react-native';
 import styles from '@styles/login';
+import fetch from '@network/index.js';
+import {
+    Button,
+    Toast,
+    Provider
+  } from '@ant-design/react-native';
 
 export default class Login extends Component {
     constructor(props) {
@@ -9,13 +15,9 @@ export default class Login extends Component {
             userPhone: '',
             userCode: '',
             btnText: '获取验证码',
-            timer: null,
             count: 60,
             result: '',
         };
-        this.changePhone = this.changePhone.bind(this);
-        this.changeCode = this.changeCode.bind(this);
-        this.getSmsCode = this.getSmsCode.bind(this);
     }
     changePhone(phone) {
         this.setState({
@@ -28,50 +30,63 @@ export default class Login extends Component {
         });
     }
     getSmsCode() {
-        if (this.state.timer) {
+        if (this.state.count !== 60) {
             return;
         }
-        let validePhone = /^1\d{10}$/.test(this.state.phone);
+        let validePhone = /^1\d{10}$/.test(this.state.userPhone);
         if (validePhone) {
             this.getSmsCodeRequest();
-            this.startCountDown();
-            this.setState({
-                result: '2222',
-            });
         }
     }
     getSmsCodeRequest() {
-        console.log('requset sms code');
+        fetch(
+            `http://121.89.223.103:8080/user/getVerifyCode/${
+                this.state.userPhone
+            }`,
+            'get',
+        ).then(res => {
+            if (res.code == 0) {
+                this.startCountDown();
+            }else{
+                Toast.fail(res.msg || '发送失败，请稍后重试');
+            }
+        })
     }
     startCountDown() {
-        this.timer = setInterval(() => {
-            this.setState(
-                {
-                    count: this.state.count--,
-                },
-                () => {
-                    if (this.state.count < 0) {
-                        clearInterval(this.state.timer);
-                        this.setState({
-                            timer: null,
-                            count: 60,
-                            btnText: '重新获取',
-                        });
-                    } else {
-                        this.setState({
-                            btnText: `${this.state.count}s后重新获取`,
-                        });
-                    }
-                },
-            );
-        }, 1000);
+        const {count} = this.state;
+        if (count === 1) {
+            this.setState({
+                count: 60,
+                liked: true,
+                btnText: '重新发送',
+            });
+        } else {
+            this.setState({
+                count: count - 1,
+                liked: false,
+                btnText: `${this.state.count}s`,
+            });
+            setTimeout(this.startCountDown.bind(this), 1000);
+        }
+    }
+    login() {
+        fetch('http://121.89.223.103:8080/user/login', 'get', {
+            phoneNumber: this.state.userPhone,
+            verifyCode: this.state.userCode,
+        }).then(res => {
+            if(res.code == 0){
+                // 去首页
+            }else{
+                Toast.fail(res.msg||"登录失败，请重试");
+            }
+        });
     }
     render() {
         return (
-            <SafeAreaView>
+            <Provider>
                 <View style={styles.bgWrapper}>
                     <View style={styles.header}>
-                        {/* <Text style={styles.headerText}>登录后更精彩</Text> */}
+                        <Text style={styles.headerText}>登录后更精彩</Text>
                         <Text style={styles.headerText}>
                             {this.state.result}
                         </Text>
@@ -80,7 +95,7 @@ export default class Login extends Component {
                         <View style={styles.flexBox}>
                             <TextInput
                                 value={this.state.userPhone}
-                                onChangeText={this.changePhone}
+                                onChangeText={val => this.changePhone(val)}
                                 style={styles.formItem}
                                 placeholder="输入手机号"
                             />
@@ -88,19 +103,24 @@ export default class Login extends Component {
                         <View style={styles.flexBox}>
                             <TextInput
                                 value={this.state.userCode}
-                                onChangeText={this.changeCode}
+                                onChangeText={val => this.changeCode(val)}
                                 style={styles.formItem}
                                 placeholder="输入验证码"
                             />
                             <Text
                                 style={styles.getSmsCodeBtn}
-                                onPress={this.getSmsCode}>
+                                onPress={() => this.getSmsCode()}>
                                 {this.state.btnText}
                             </Text>
                         </View>
+                        <Button 
+                            style={styles.loginBtnBox} 
+                            onPress={() => this.login()}>
+                            <Text style={styles.loginBtnText} >登录</Text>
+                        </Button>
                     </View>
                 </View>
-            </SafeAreaView>
+            </Provider>
         );
     }
 }
