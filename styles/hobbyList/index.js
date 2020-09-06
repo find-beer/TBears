@@ -21,6 +21,7 @@ export default StyleSheet.create({
         flexWrap: 'wrap',
         paddingLeft: scaleSize(50),
         paddingRight: scaleSize(50),
+        marginBottom: scaleSize(80),
     },
     hobbyItem: {
         height: scaleSize(100),
@@ -59,6 +60,7 @@ export default StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center',
+        marginTop: scaleSize(80),
     },
     startBox: {
         width: scaleSize(560),

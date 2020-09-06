@@ -1,12 +1,8 @@
 import React, {Component} from 'react';
-import {SafeAreaView, View, Text, TextInput} from 'react-native';
+import {View, Text, TextInput} from 'react-native';
 import styles from '@styles/login';
 import fetch from '@network/index.js';
-import {
-    Button,
-    Toast,
-    Provider
-  } from '@ant-design/react-native';
+import {Button, Toast, Provider} from '@ant-design/react-native';
 
 export default class Login extends Component {
     constructor(props) {
@@ -45,12 +41,12 @@ export default class Login extends Component {
             }`,
             'get',
         ).then(res => {
-            if (res.code == 0) {
+            if (res.code === 0) {
                 this.startCountDown();
-            }else{
+            } else {
                 Toast.fail(res.msg || '发送失败，请稍后重试');
             }
-        })
+        });
     }
     startCountDown() {
         const {count} = this.state;
@@ -74,10 +70,10 @@ export default class Login extends Component {
             phoneNumber: this.state.userPhone,
             verifyCode: this.state.userCode,
         }).then(res => {
-            if(res.code == 0){
+            if (res.code === 0) {
                 // 去首页
-            }else{
-                Toast.fail(res.msg||"登录失败，请重试");
+            } else {
+                Toast.fail(res.msg || '登录失败，请重试');
             }
         });
     }
@@ -113,10 +109,10 @@ export default class Login extends Component {
                                 {this.state.btnText}
                             </Text>
                         </View>
-                        <Button 
-                            style={styles.loginBtnBox} 
+                        <Button
+                            style={styles.loginBtnBox}
                             onPress={() => this.login()}>
-                            <Text style={styles.loginBtnText} >登录</Text>
+                            <Text style={styles.loginBtnText}>登录</Text>
                         </Button>
                     </View>
                 </View>

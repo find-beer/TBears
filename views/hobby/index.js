@@ -25,12 +25,25 @@ export default class Login extends Component {
             },
         };
     }
+    componentDidMount() {
+        this.getHobbyList();
+    }
+    getHobbyList() {
+        fetch('http://121.89.223.103:8080/user/listHobbyTagName', 'get').then(
+            res => {
+                if (res.code === 0) {
+                    // 去首页
+                    console.log(res);
+                }
+            },
+        );
+    }
     activeItem(index) {}
     register() {
         fetch('http://121.89.223.103:8080/user/modifyUser', 'put', {
             ...this.state.registerForm,
         }).then(res => {
-            if (res.code == 0) {
+            if (res.code === 0) {
                 // 去首页
                 console.log(res);
             } else {
@@ -54,9 +67,6 @@ export default class Login extends Component {
                                 </View>
                             );
                         })}
-                    </View>
-                    <View style={styles.handleAddBox}>
-                        <Text style={styles.handleAdd}>手动添加更多</Text>
                     </View>
                     <View style={styles.startBoxWrapper}>
                         <View
