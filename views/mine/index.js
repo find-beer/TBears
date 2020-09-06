@@ -3,13 +3,13 @@
  */
 
 import React from 'react';
-import {View, Image, Text, ImageBackground} from 'react-native';
-import Header from '@views/common/header';
+import {Image, ImageBackground, Text, View} from 'react-native';
 import DynamicTab from '@views/common/dynamicTab';
 import DynamicItem from '@views/common/dynamicItem';
 import PersonalInfo from '@views/common/personalInfo';
-import {SwipeListView} from 'react-native-swipe-list-view';
 import styles from '@styles/mine';
+import {ScrollView} from 'react-navigation';
+
 const imageUrl = {
     configIcon: require('../../assets/mine/download-icon.png'),
     avatarBg: require('../../assets/mine/avatar-bg.png'),
@@ -26,47 +26,48 @@ const imageUrl = {
 };
 
 export default () => (
-    <View>
-        <Header title="我的" left={null} />
-        <ImageBackground style={styles.persionalTab} source={imageUrl.avatar}>
-            <View style={styles.bgaWrapper}>
-                <PersonalInfo />
-                <View style={styles.settingBox}>
-                    <Image
-                        source={imageUrl.configIcon}
-                        style={styles.configIcon}
-                    />
-                    <Text style={styles.configFont}>设置</Text>
-                </View>
-                <View style={styles.operationBox}>
-                    <View style={styles.operationBtn}>
-                        <Image
-                            source={imageUrl.QRCodeIcon}
-                            style={styles.btnIcon}
-                        />
-                        <Text style={styles.btnText}>二维码</Text>
-                    </View>
-                    <View style={styles.operationBtn}>
-                        <Image
-                            source={imageUrl.EditIcon}
-                            style={styles.btnIcon}
-                        />
-                        <Text style={styles.btnText}>仓库</Text>
-                    </View>
-                    <View style={styles.operationBtn}>
-                        <Image
-                            source={imageUrl.EditIcon}
-                            style={styles.btnIcon}
-                        />
-                        <Text style={styles.btnText}>编辑资料</Text>
-                    </View>
-                </View>
-            </View>
-        </ImageBackground>
-        <View style={styles.lineSpace} />
-        <DynamicTab />
+    <ScrollView>
         <View>
-            <DynamicItem />
+            <ImageBackground style={styles.persionalTab} source={imageUrl.avatar}>
+                <View style={styles.bgaWrapper}>
+                    <PersonalInfo/>
+                    <View style={styles.settingBox}>
+                        <Image
+                            source={imageUrl.configIcon}
+                            style={styles.configIcon}
+                        />
+                        <Text style={styles.configFont}>设置</Text>
+                    </View>
+                    <View style={styles.operationBox}>
+                        <View style={styles.operationBtn}>
+                            <Image
+                                source={imageUrl.QRCodeIcon}
+                                style={styles.btnIcon}
+                            />
+                            <Text style={styles.btnText}>二维码</Text>
+                        </View>
+                        <View style={styles.operationBtn}>
+                            <Image
+                                source={imageUrl.EditIcon}
+                                style={styles.btnIcon}
+                            />
+                            <Text style={styles.btnText}>仓库</Text>
+                        </View>
+                        <View style={styles.operationBtn}>
+                            <Image
+                                source={imageUrl.EditIcon}
+                                style={styles.btnIcon}
+                            />
+                            <Text style={styles.btnText}>编辑资料</Text>
+                        </View>
+                    </View>
+                </View>
+            </ImageBackground>
+            <View style={styles.lineSpace}/>
+            <DynamicTab/>
+            <View>
+                <DynamicItem/>
+            </View>
         </View>
-    </View>
+    </ScrollView>
 );
