@@ -32,7 +32,7 @@ import ActivityDetail from '@views/activityDetail'; // 活动详情
 
 export default {
     MainTab: {
-        screen: MainTabScreen,
+        screen: RegisterScreen,
     },
     Home: {
         screen: Home,
