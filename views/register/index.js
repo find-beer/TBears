@@ -12,9 +12,9 @@ import {
     Button,
     TextareaItem,
     DatePicker,
+    Toast,
 } from '@ant-design/react-native';
 import {RadioGroup, RadioButton} from 'react-native-flexi-radio-button';
-import fetch from '@network/index.js';
 
 export default class Register extends Component {
     constructor(props) {
@@ -22,16 +22,26 @@ export default class Register extends Component {
         this.state = {
             registerForm: {
                 headPicUrl: '',
-                name: '钱罗罗',
-                lat: '116.399712',
-                lng: '40.053582',
-                locationStr: '北京市海淀区育新花园',
+                name: '',
+                lng: '116.462595',
+                lat: '40.005258',
+                locationStr: '北京市朝阳区',
                 birthday: undefined,
-                sex: '女',
-                introduction: '无',
-                uid: 0,
-                loginToken: '',
+                sex: undefined,
+                introduction: '我是',
+                phoneNumber:
+                    (this.props.navigation.state.params &&
+                        this.props.navigation.state.params.tel) ||
+                    '15940100217',
             },
+            tips: {
+                headPicUrl: '头像不能为空~',
+                name: '名字不能为空',
+                locationStr: '地址不能为空~',
+                birthday: '生日不能为空~',
+                sex: '性别也要加上~',
+            },
+            headPicUrl: '',
         };
     }
     confirmBirthday(value) {
@@ -43,8 +53,19 @@ export default class Register extends Component {
         console.log(val);
     }
     next() {
+        let failFlag = '';
+        for (let key in this.state.registerForm) {
+            if (!this.state.registerForm[key]) {
+                failFlag = key;
+                break;
+            }
+        }
+        if (failFlag) {
+            Toast.fail(this.state.tips[failFlag]);
+            return;
+        }
         console.log(this.state.registerForm);
-        this.props.navigation.navigate('MainTabScreen');
+        this.props.navigation.navigate('Hobby', this.state.registerForm);
     }
     changeDate(val) {
         this.setState({
@@ -54,10 +75,15 @@ export default class Register extends Component {
             },
         });
     }
-    onSelectSex(index, value) {
-        console.log(index, value);
+    onSelectSex(value) {
+        console.log(value);
+        this.setState({
+            registerForm: {
+                ...this.state.registerForm,
+                sex: value + 1,
+            },
+        });
     }
-    componentDidMount() {}
     choosePicture() {
         this.setState({});
         const options = {
@@ -91,28 +117,39 @@ export default class Register extends Component {
                 console.log('User tapped custom button: ');
             } else {
                 const source = {uri: 'data:image/jpeg;base64,' + response.data};
-                this.uploadImage(source.uri);
+                this.uploadImage({
+                    uri: response.uri,
+                    type: 'multipart/form-data',
+                    name: 'headPic.jpg',
+                });
                 this.setState({
-                    registerForm: {
-                        ...this.state.registerForm,
-                        headPicUrl: source,
-                    },
+                    headPicUrl: source,
                 });
             }
         });
     }
-    uploadImage(fileData) {
+    uploadImage(file) {
         let formData = new FormData();
-        formData.append({
-            imgFile: fileData,
-        });
-        fetch(
-            'http://121.89.223.103:8080/common/uploadImage',
-            'post',
-            formData,
-        ).then(res => {
-            console.log(res);
-        });
+        formData.append('imgFile', file);
+        fetch('http://121.89.223.103:8080/common/uploadImage', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'multipart/form-data;charset=utf-8',
+            },
+            body: formData,
+        })
+            .then(response => {
+                return response.json();
+            })
+            .then(res => {
+                console.log(res);
+                this.setState({
+                    registerForm: {
+                        ...this.state.registerForm,
+                        headPicUrl: res.data.url,
+                    },
+                });
+            });
     }
     render() {
         return (
@@ -123,10 +160,7 @@ export default class Register extends Component {
                             style={styles.flexImg}
                             onPress={() => this.choosePicture()}>
                             <Image
-                                source={
-                                    this.state.registerForm.headPicUrl ||
-                                    imgUrl.avater
-                                }
+                                source={this.state.headPicUrl || imgUrl.avater}
                                 style={styles.avaterIcon}
                             />
                             <Text style={styles.label}>上传头像</Text>
@@ -135,7 +169,7 @@ export default class Register extends Component {
                             <Text style={styles.label}>昵称</Text>
                             <TextInput
                                 value={this.state.registerForm.name}
-                                onChange={val =>
+                                onChangeText={val =>
                                     this.setState({
                                         registerForm: {
                                             ...this.state.registerForm,
@@ -163,8 +197,8 @@ export default class Register extends Component {
                             <DatePicker
                                 value={this.state.registerForm.birthday}
                                 mode="date"
-                                minDate={new Date(2015, 7, 6)}
-                                maxDate={new Date(2026, 11, 3)}
+                                minDate={new Date(1970, 1, 1)}
+                                maxDate={new Date(2020, 1, 1)}
                                 onChange={val => this.changeDate(val)}
                                 format="YYYY-MM-DD">
                                 <List.Item arrow="horizontal">
@@ -178,15 +212,12 @@ export default class Register extends Component {
                             <Text style={styles.label}>性别</Text>
                             <RadioGroup
                                 style={styles.sexBox}
-                                onSelect={(index, value) =>
-                                    this.onSelectSex(index, value)
-                                }>
+                                onSelect={value => this.onSelectSex(value)}>
                                 <RadioButton value={1}>
-                                    <Text>男</Text>
-                                </RadioButton>
-
-                                <RadioButton value={2}>
                                     <Text>女</Text>
+                                </RadioButton>
+                                <RadioButton value={2}>
+                                    <Text>男</Text>
                                 </RadioButton>
                             </RadioGroup>
                         </View>
