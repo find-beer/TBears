@@ -10,10 +10,10 @@
         "lint": "eslint ."
     },
     "dependencies": {
-        "@react-native-community/datetimepicker": "^2.4.0",
         "@ant-design/icons-react-native": "^2.2.1",
         "@ant-design/react-native": "3.1.15",
         "@react-native-community/cameraroll": "^4.0.0",
+        "@react-native-community/datetimepicker": "^2.4.0",
         "@react-native-community/masked-view": "^0.1.6",
         "@react-native-community/picker": "^1.6.6",
         "@react-native-community/segmented-control": "^2.1.1",
@@ -28,6 +28,8 @@
         "react-native": "0.61.4",
         "react-native-amap-geolocation": "^1.0.4",
         "react-native-calendars": "^1.265.0",
+        "react-native-common-date-picker": "^2.3.3",
+        "react-native-flexi-radio-button": "^0.2.2",
         "react-native-gesture-handler": "^1.5.3",
         "react-native-image-picker": "^2.3.1",
         "react-native-linear-gradient": "^2.5.6",

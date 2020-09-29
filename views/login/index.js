@@ -72,6 +72,12 @@ export default class Login extends Component {
         }).then(res => {
             if (res.code === 0) {
                 // 去首页
+                this.props.navigation.navigate('MainTabScreen');
+            } else if (res.code === 10001) {
+                // 去注册
+                this.props.navigation.navigate('RegisterScreen', {
+                    tel: this.state.userPhone,
+                });
             } else {
                 Toast.fail(res.msg || '登录失败，请重试');
             }

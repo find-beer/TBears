@@ -39,13 +39,17 @@ export default StyleSheet.create({
         borderRadius: scaleSize(50),
         marginRight: scaleSize(20),
         marginBottom: scaleSize(20),
-        backgroundColor: '#295cf0',
-        color: '#ffffff',
+        backgroundColor: '#8066E3',
     },
     hobbyText: {
         lineHeight: scaleSize(100),
         color: '#564F5F',
         fontSize: scaleFont(42),
+    },
+    hobbyActiveText: {
+        lineHeight: scaleSize(100),
+        fontSize: scaleFont(42),
+        color: '#FFF',
     },
     handleAddBox: {
         marginTop: scaleSize(90),

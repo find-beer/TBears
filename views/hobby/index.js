@@ -1,54 +1,97 @@
 import React, {Component} from 'react';
-import {SafeAreaView, View, Text} from 'react-native';
+import {
+    SafeAreaView,
+    View,
+    Text,
+    TouchableOpacity,
+    Toast,
+    AsyncStorage,
+} from 'react-native';
 import styles from '@styles/hobbyList';
-import {hobbyList} from './hobbyList';
+import enhanceFetch from '@utils/fetch';
 
 export default class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            hobbyList: hobbyList,
+            hobbyList: [],
             checkedHobby: [],
-            registerForm: {
-                headPicUrl:
-                    'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1597719505224&di=8ba41df83bad100434d4ab8e6b8dc121&imgtype=0&src=http%3A%2F%2Fimage.biaobaiju.com%2Fuploads%2F20180918%2F15%2F1537256695-VHPonEfJju.jpeg',
-                name: '钱罗罗',
-                lat: '116.399712',
-                lng: '40.053582',
-                locationStr: '北京市海淀区育新花园',
-                birthday: '1995-02-24',
-                sex: '女',
-                introduction: '无',
-                uid: 0,
-                loginToken: '',
-                hobbyTagNameList: ['滑板', '跑步', '网球'],
-            },
+            registerForm: this.props.navigation.state.params,
         };
     }
     componentDidMount() {
         this.getHobbyList();
     }
     getHobbyList() {
-        fetch('http://121.89.223.103:8080/user/listHobbyTagName', 'get').then(
-            res => {
-                if (res.code === 0) {
-                    // 去首页
-                    console.log(res);
-                }
-            },
-        );
-    }
-    activeItem(index) {}
-    register() {
-        fetch('http://121.89.223.103:8080/user/modifyUser', 'put', {
-            ...this.state.registerForm,
-        }).then(res => {
-            if (res.code === 0) {
-                // 去首页
-                console.log(res);
-            } else {
-            }
+        enhanceFetch('user/listHobbyTagName', 'get').then(res => {
+            res &&
+                this.setState({
+                    hobbyList: res,
+                });
         });
+    }
+    activeItem(index) {
+        // 取消选中
+        if (this.state.checkedHobby.includes(index)) {
+            let arr = [...this.state.checkedHobby];
+            arr.splice(arr.findIndex(item => item === index), 1);
+            this.setState({
+                checkedHobby: arr,
+            });
+            return;
+        }
+        // 最多3个
+        if (this.state.checkedHobby.length >= 5) {
+            return;
+        }
+        // 选中
+        this.setState({
+            checkedHobby: [...this.state.checkedHobby, index],
+        });
+    }
+    add0(m) {
+        return m < 10 ? '0' + m : m;
+    }
+    format(times) {
+        //shijianchuo是整数，否则要parseInt转换
+        let time = new Date(times);
+        let y = time.getFullYear();
+        let m = time.getMonth() + 1;
+        let d = time.getDate();
+        return `${y}-${this.add0(m)}-${this.add0(d)}`;
+    }
+    register() {
+        if (this.state.checkedHobby.length < 1) {
+            Toast.fail('兴趣爱好至少选择一个~');
+        }
+        let checked = [];
+        for (let i = 0; i < this.state.checkedHobby.length; i++) {
+            checked.push(this.state.hobbyList[i]);
+        }
+        let params = {
+            ...this.state.registerForm,
+            hobbyTagNameList: checked,
+            birthday: this.format(
+                Date.parse(new Date(this.state.registerForm.birthday)),
+            ).toString(),
+        };
+        enhanceFetch('user/signUp', 'post', params).then(res => {
+            this.props.navigation.navigate('MainTabScreen');
+            AsyncStorage.setItem(
+                'object',
+                JSON.stringify({userToken: res.token}),
+            );
+        });
+    }
+    getClass(index) {
+        return this.state.checkedHobby.includes(index)
+            ? styles.hobbyActiveItem
+            : styles.hobbyItem;
+    }
+    getTextClass(index) {
+        return this.state.checkedHobby.includes(index)
+            ? styles.hobbyActiveText
+            : styles.hobbyText;
     }
     render() {
         return (
@@ -58,24 +101,27 @@ export default class Login extends Component {
                         <Text style={styles.headerText}>点选你喜欢的</Text>
                     </View>
                     <View style={styles.hobbyBox}>
-                        {hobbyList.map((item, index) => {
+                        {this.state.hobbyList.map((item, index) => {
                             return (
-                                <View key={item.value} style={styles.hobbyItem}>
-                                    <Text style={styles.hobbyText}>
-                                        {item.label}
+                                <TouchableOpacity
+                                    key={item}
+                                    style={this.getClass(index)}
+                                    onPress={() => this.activeItem(index)}>
+                                    <Text style={this.getTextClass(index)}>
+                                        {item}
                                     </Text>
-                                </View>
+                                </TouchableOpacity>
                             );
                         })}
                     </View>
                     <View style={styles.startBoxWrapper}>
-                        <View
+                        <TouchableOpacity
                             style={styles.startBox}
                             onPress={() => this.register()}>
                             <Text style={styles.startTbearsBtn}>
                                 开启探熊APP
                             </Text>
-                        </View>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </SafeAreaView>
